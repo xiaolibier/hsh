@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../public/css/pagination.css" />
+	<link rel="stylesheet" href="../public/css/common.css" />
+	<title></title>
+	<style>
+		.updownbody .search_table tr:nth-child(2), .updownbody .search_table tr:nth-child(3), .updownbody .search_table tr:nth-child(4){display:table-row;}
+		.xiangmuguanli .table1 tr th{line-height:20px;}
+	</style>
+</head>
+<body class="xiangmuguanli updownbody">
+	<!-- 客户名称 -->
+	<ul style="width:356px;" class="choiseDanwei choiseDanwei4">
+		<li>加载失败</li>
+	</ul>
+	<ul style="width:356px;" class="choiseDanwei choiseDanwei5">
+		<li>加载失败</li>
+	</ul>
+	<h4 class="mokuaifaxian">
+		<a id="renwubianji1" class="a">任务实施</a>
+		<a id="renwubianji2" class="a">任务信息</a>
+		<a id="renwubianji3" class="a active">快递信息</a>
+		<!-- <a href="javascript:;" id="backPage" style="display:none;" class="jc_btn type5 last">返回</a> -->
+	</h4>
+
+	<div class="m_info">
+		<!-- 项目总数：<span id="totalElements" class="m_value">0</span> -->
+		<a class="daochuCommonBtn" id="daochu" >导出</a>
+		<a class="creat_forse" id="new_project" >新建快递</a>
+	</div>
+	<div id="tableList" class="table_div">
+		<!-- <table class="table1">
+			<tr>
+				<th><div class="check_box"><i class="i"></i></div></th>
+				<th style="min-width:26px;">编号</th>
+				<th style="min-width:52px;">快递原因</th>
+				<th style="min-width:52px;">快递物品</th>
+				<th style="min-width:52px;">发件时间</th>
+				<th style="min-width:39px;">发件人</th>
+				<th style="min-width:52px;">发件信息</th>
+				<th style="min-width:39px;">收件人</th>
+				<th style="min-width:52px;">收件信息</th>
+				<th style="min-width:52px;">快递单号</th>
+				<th style="min-width:26px;">备注</th>
+				<th style="min-width:152px;">操作</th>
+			</tr>
+			<tr>
+				<td><div class="check_box"><i class="i"></i></div></td>
+				<td>2</td>
+				<td>身份证可以使用了回寄继续办理</td>
+				<td></td>
+				<td>2016-7-23</td>
+				<td>甲方</td>
+				<td></td>
+				<td>园区负责人</td>
+				<td></td>
+				<td>5555555</td>
+				<td></td>
+				<td class="last">
+					<a class="cao_btn cao_btn2">编辑</a>
+				</td>
+			</tr>
+			<tr>
+				<td><div class="check_box"><i class="i"></i></div></td>
+				<td>1</td>
+				<td>甲方需要身份证要回寄</td>
+				<td></td>
+				<td>2016-7-23</td>
+				<td>甲方</td>
+				<td></td>
+				<td>园区负责人</td>
+				<td></td>
+				<td>5555555</td>
+				<td></td>
+				<td class="last">
+					<a class="cao_btn cao_btn2">编辑</a>
+				</td>
+			</tr>
+		</table> -->
+	</div>
+	<div class="pages">
+        <div id="Pagination"></div>
+        <div style="display:none;"  class="searchPage">
+          <span style="display:none;" class="page-sum">共<strong class="allPage">1</strong>页</span>
+          <span class="page-sum">
+			<select class="com_select pagesShow">
+				<option value=10 >10条/页</option>
+				<option value=30 >30条/页</option>
+				<option value=50 >50条/页</option>
+			</select>
+		</span>
+          <span class="page-go">跳转<input type="text">页</span>
+          <a href="javascript:;" class="page-btn gogo">GO</a>
+        </div>
+    </div>
+
+	<!-- 弹窗 -->
+	<div info="弹窗背景" class="stip_bg"></div>
+	<div info="弹窗容器" class="stip_box">
+		<div class="stip_content">
+			
+			<div class="sbox xiugaizhongxin">
+				<h4 class="sbox_h4">快递信息</h4>
+				<!-- <div class="sbox_c"><span class="slable">编号</span><i class="star"></i><input id="code" class="sbox_input" type="text"/></div> -->
+				<div class="sbox_c"><span class="slable">快递原因</span><i class="star">*</i><input id="reason" class="sbox_input" type="text"/></div>
+				<div class="sbox_c"><span class="slable">快递物品</span><i class="star">*</i><input id="goods" class="sbox_input" type="text"/></div>
+				<div class="sbox_c"><span class="slable">发件人</span><i class="star">*</i><input id="sendName" class="sbox_input" type="text"/></div>
+				<div class="sbox_c"><span class="slable">发件信息</span><i class="star">*</i><input id="sendInfo" class="sbox_input" type="text"/></div>
+				<div class="sbox_c"><span class="slable">收件人</span><i class="star">*</i><input id="receiver" class="sbox_input" type="text"/></div>
+				<div class="sbox_c"><span class="slable">收件信息</span><i class="star">*</i><input id="receiverInfo" class="sbox_input" type="text"/></div>
+				<div class="sbox_c"><span class="slable">客户快递单号</span><i class="star">*</i><input id="expressNum" class="sbox_input" type="text"/></div>
+				<div class="sbox_c"><span class="slable">快递时间</span><i class="star">*</i><input id="sendTime" class="sbox_input" type="text"/></div>
+				<div class="sbox_c"><span class="slable">备注</span><i class="star"></i><textarea id="remark" style="height:35px;" class="sbox_input"></textarea></div>
+				<div class="sbox_btn_div">
+					<a href="javascript:;" id="noBtn" onclick="closeSbox()" class="sbox_btn btn1">取消</a>
+					<a id="yesBtn" href="javascript:;" class="sbox_btn btn2">确认</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	
+	
+	<div style="display:none;" info="导出table" id="exportExcel"></div>
+	<script type="text/javascript" src="../public/libs/jquery.min.js"></script>
+	<script type="text/javascript" src="../public/laydate/laydate.js"></script>
+	<script type="text/javascript" src="../public/libs/json.js"></script>
+	<script type="text/javascript" src="../public/libs/base.js"></script>
+	<script type="text/javascript" src="../public/libs/layer.js"></script>
+	<script type="text/javascript" src="../public/libs/utils.js"></script>
+	<script type="text/javascript" src="../public/js/common2.js"></script>
+	<script type="text/javascript" src="../public/libs/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../public/libs/excelTable.js"></script>
+	<script type="text/javascript" src="../public/libs/exportjs/FileSaver.js"></script>
+	<script type="text/javascript" src="../public/libs/exportjs/jquery.wordexport.js"></script>
+	
+</body>
+
+<script>
+$(function(){
+	var g = {};
+	g.login_token = Utils.offLineStore.get("token",false) || "";
+	g.ser = Utils.getQueryString("ser") || "";//从工作台获取搜索项
+	g.id = Utils.getQueryString("id") || Utils.offLineStore.get("renid",false);//获取id
+	g.httpTip = new Utils.httpTip({});
+	g.totalPage = 1;//存总页数
+	g.nowPage = 0;//存当前页 0 是第一页
+	g.showPages = 10;//每页显示多少行
+	g.loadPage = true;//判断页面刚加载一次 定义分页的地方用
+	g.ids = [];//存储当前所有项目id及其状态
+	g.quanxuan = 0;
+	
+/* **************************************** lodding ******************************************** */	
+	//加载顶部标题
+	$('#menu_show_t .ss',parent.document).removeClass('active').html('');
+	$('#menu_show_t .s0',parent.document).css('cursor','pointer').html('落地任务管理').off().on('click',function(){
+		parent.document.getElementById("iframeObj").src = '任务管理.html';
+	});
+	$('#menu_show_t .s1',parent.document).html(' > 快递信息').addClass('active');
+	$('#daochu').off().on('click',toExcel);
+	loadPage();
+	$('#new_project').on('click',function(){shownewCenterSbox('new')});
+	
+	//测试
+	$('#renwubianji1').on('click',function(){
+		parent.document.getElementById("iframeObj").src = '任务管理-任务实施.html?id='+g.id;
+	});
+	$('#renwubianji2').on('click',function(){
+		parent.document.getElementById("iframeObj").src = '任务管理-任务信息.html?id='+g.id;
+	});
+	$('#renwubianji3').on('click',function(){
+		parent.document.getElementById("iframeObj").src = '任务管理-快递信息.html?id='+g.id;
+	});
+	
+	
+	
+/* **************************************** setTing ******************************************** */	
+
+	//加载页面
+	function loadPage(){
+		getShenBanFang();//获取客户名称列表
+		tableListShow();//显示列表
+	}
+
+		
+	//输入时搜索客户名称
+	$("#receiver").keyup(function(){
+		var _vth = $(this);
+		var _li = $('.choiseDanwei4 li');
+		var _val = _vth.val() || '';
+		if(_val == '' || _li.length <= 0){return false;}
+		_li.show();
+		_li.each(function(){//循环搜索
+			var _tt = $(this);
+			var _val2 = _tt.html() || '';
+			var _if = _val2.indexOf(_val);
+			if(_if <= -1){//不符合
+				_tt.hide();
+			}else{_tt.show();}
+		});
+	});
+	//输入时搜索客户名称
+	$("#sendName").keyup(function(){
+		var _vth = $(this);
+		var _li = $('.choiseDanwei5 li');
+		var _val = _vth.val() || '';
+		if(_val == '' || _li.length <= 0){return false;}
+		_li.show();
+		_li.each(function(){//循环搜索
+			var _tt = $(this);
+			var _val2 = _tt.html() || '';
+			var _if = _val2.indexOf(_val);
+			if(_if <= -1){//不符合
+				_tt.hide();
+			}else{_tt.show();}
+		});
+	});
+	
+	
+	//选择客户
+	$("#sendName").click(function(e){
+		var _is = $(this);
+		var xx = _is.offset().left || 0;
+        var yy = _is.offset().top || 0;
+		var _top = yy + _is.height() -9;
+        $('.choiseDanwei5 li').show();
+		$('.choiseDanwei').hide();
+		$('.choiseDanwei5').show().css({"left":xx,"top":_top});
+		$('.choiseDanwei5 li').on('click',function(e){
+			var _tis = $(this);
+			var _vdan= _tis.html() || '';
+			var _vtip= _tis.attr('tip') || '';
+			var str= _tis.attr('str') || '';
+			_is.val(_vdan);
+			_is.attr('tip',_vtip);
+			$('#sendInfo').val(str);
+			_tis.parents('.choiseDanwei').hide();
+			stopPropagation(e);
+		});
+		stopPropagation(e);
+    });
+	$("#receiver").click(function(e){
+		var _is = $(this);
+		var xx = _is.offset().left || 0;
+        var yy = _is.offset().top || 0;
+		var _top = yy + _is.height() -9;
+        $('.choiseDanwei4 li').show();
+		$('.choiseDanwei').hide();
+		$('.choiseDanwei4').show().css({"left":xx,"top":_top});
+		$('.choiseDanwei4 li').on('click',function(e){
+			var _tis = $(this);
+			var _vdan= _tis.html() || '';
+			var _vtip= _tis.attr('tip') || '';
+			var str= _tis.attr('str') || '';
+			_is.val(_vdan);
+			_is.attr('tip',_vtip);
+			$('#receiverInfo').val(str);
+			_tis.parents('.choiseDanwei').hide();
+			stopPropagation(e);
+		});
+		stopPropagation(e);
+    });
+	
+	
+	//获取客户名称列表
+	function getShenBanFang(){
+		var condi = {};
+		condi.number = 1000;//每页显示行数
+		var url = Base.serverUrl + "customer/search";
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"POST",
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			dataType:'json',
+			context:this,
+			success: function(data){
+				var status = data.success || false;
+				if(status){
+					var data = data.result || [];
+					var data = data.content || [];
+					var html = '';
+					for(var i=0,len=data.length;i<len;i++){
+						var d = data[i] || [];
+						var id = d.id || '';
+						var name = d.name || '';
+						var invoiceMailingAddress = d.invoiceMailingAddress || '';//邮寄地址
+						var invoiceReceiverPhone = d.invoiceReceiverPhone || '';//收件人电话
+						var invoiceReceiver = d.invoiceReceiver || '';//收件人
+						var iiistr = '邮寄地址:'+invoiceMailingAddress+';'+'收件人:'+invoiceReceiver+';'+'收件人电话:'+invoiceReceiverPhone+';';
+						html += '<li str="'+iiistr+'"  tip="'+id+'">'+name+'</li>';
+					}
+					$('.choiseDanwei4').html(html);
+					$('.choiseDanwei5').html(html);
+				}
+				else{
+					var msg = data.message || "登录失败";
+					Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
+	
+	
+	//初始化弹窗
+	function reloadSbox(){
+		$('.xiugaizhongxin input,.xiugaizhongxin textarea').val('');//清空弹窗
+		$('.xiugaizhongxin select').val('');//清空弹窗
+		$('#noBtn').html('取消');
+		$('#yesBtn').off().show();
+		$('.xiugaizhongxin input').removeAttr('readonly').removeClass('readonly');//清空
+		$('.xiugaizhongxin select').removeAttr('disabled').removeClass('readonly');//清空
+	}	
+	//显示新建窗口
+	function shownewCenterSbox(){
+		reloadSbox();//初始化弹窗
+		//$('.xiugaizhongxin .sbox_h4').html('添加银行');
+		showSbox('.xiugaizhongxin');//显示弹窗
+		$('#yesBtn').off().on('click',function(){centerFunc('new')});
+	}
+	//新建
+	window.centerFunc = function(is,id){
+		var is = is || '';
+		var id = id || '';
+		$('#yesBtn').off();
+		var condi = {};
+		condi.taskId  = g.id;
+		condi = setInfoCondi(condi,'.xiugaizhongxin','.sbox_c');
+		if(condi == false){return false;}
+		var url = Base.serverUrl + "express/create";
+		if(is == 'change'){condi.id = id;url = Base.serverUrl + "express/update";}
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			dataType:'json',
+			context:this,
+			success: function(data){
+				var status = data.success || false;
+				if(status){
+					var tips = '新增成功！';
+					if(is == 'change'){tips = '修改成功！';}
+					Utils.alert(tips);
+					tableListShow(2);//列表
+					closeSbox();//关闭弹窗
+				}
+				else{
+					var msg = data.message || "获取信息失败";
+					Utils.alert(msg);
+				}
+				$('#yesBtn').off().on('click',function(){centerFunc(is)});
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				$('#yesBtn').off().on('click',function(){centerFunc(is)});
+				if(status=='timeout'){
+		　　　　　  //Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	 
+		
+	//获取项目所有id列表
+	function getids(){
+		var condi = {};
+		condi.number = 10000;//
+		//condi = setCondi(condi);
+		var url = Base.serverUrl + "express/search/ids";
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"POST",
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			dataType:'json',
+			context:this,
+			success: function(data){
+				var status = data.success || false;
+				if(status){
+					var d = data.result || [];
+					g.ids = [];
+					for(var i=0,len=d.length;i<len;i++){
+						var num = d[i] || '';
+						if(num != ''){
+							var zu = [num,0];
+							g.ids.push(zu);
+						}
+					}
+					//console.log(g.ids);
+				}
+				else{
+					var msg = data.message || "获取失败";
+					//Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  //Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	//设置获取当前选中的导出项 全选 全取消
+	function getSetIDS(id,sta){
+		var id = id || '';//id : all 全选 : no 全部取消
+		var sta = sta || '';
+		var res = '';
+		if(g.ids.length <= 0 ){return res;}
+		for(var i=0,len=g.ids.length;i<len;i++){
+			var d = g.ids[i] || '';
+			var num = d[0] || '';
+			var state = d[1] || 0;
+			//获取当前选中项
+			if(state == '1'){
+				if(res == ''){
+					res = num;
+				}else{
+					res = res + ',' + num;
+				}
+			}
+			//设置当前选中项
+			if(id != '' && sta != '' && id == num){
+				g.ids[i][1] = sta;
+			}
+			//全选
+			if(id == 'all' && sta == ''){
+				g.ids[i][1] = '1';
+			}
+			//全部取消
+			if(id == 'no' && sta == ''){
+				g.ids[i][1] = '0';
+			}
+		}
+		return res;
+	}				
+	//全选
+	function selAll(){
+		$('.xiangmuguanli').off('click','.check_box').on('click','.check_box',function(){
+			var _this = $(this) || {};
+			var _id = _this.attr('idx') || '';
+			if(_this.hasClass('active')){
+				_this.removeClass('active');
+				if(_id != ''){getSetIDS(_id,'0');}//取消选中当前项
+			}else{
+				_this.addClass('active');
+				if(_id != ''){getSetIDS(_id,'1');}//选中当前项
+			}
+		});
+		
+		$('.xiangmuguanli').off('click','.toAll').on('click','.toAll',function(){
+			//$(this).toggleClass('active');
+			if($(this).hasClass('active')){
+				$('.tocommon').addClass('active');
+				getSetIDS('all');//全选
+				g.quanxuan = 1;
+			}else{
+				$('.tocommon').removeClass('active');
+				getSetIDS('no');//全部取消
+				g.quanxuan = 0;
+			}
+		});
+		$('#daochu').off().on('click',toExcel);
+		$('#daochu2').off().on('click',toExcel2);
+	}
+
+	//导出excel
+	function toExcel(){
+		if(!$('.tocommon').hasClass('active')){Utils.alert('请选择需要导出的项目！');return false;}
+		/* var ids = '';
+		$('.tocommon').each(function(){
+			var _this = $(this) || {};
+			var idx = _this.attr('idx') || '';
+			if(_this.hasClass('active') && idx!= ''){
+				if(ids == ''){
+					ids = idx;
+				}else{
+					ids = ids + ',' + idx;
+				}
+			}
+		}); */
+		exporttoexcel();//获取需要导出的EXCEL列表
+		
+	}
+
+	//获取需要导出的EXCEL列表
+	function exporttoexcel(){
+		$('#daochu').off().on('click',function(){Utils.alert('请稍后！');});
+		var ids = getSetIDS();
+		var condi = {};
+		condi.ids = ids;//当前页
+		condi.number = 1000;//
+		var url = Base.serverUrl + "express/search";
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"POST",
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			dataType:'json',
+			context:this,
+			success: function(data){
+				var status = data.success || false;
+				if(status){
+					var data = data.result || [];
+					
+					var html = '';
+					html += '<table id="exportTable" class="table1">'
+						+'<tr>'
+							+'<th style="min-width:58px;">项目编号</th>'
+							+'<th style="min-width:125px;">项目药品/器械名称</th>'
+							+'<th style="min-width:62px;">申办方</th>'
+							+'<th style="min-width:62px;">项目类型</th>'
+							+'<th style="min-width:72px;">注册类型</th>'
+							+'<th style="min-width:58px;">适应症</th>'
+							+'<th style="min-width:130px;">项目分期</th>'
+							+'<th style="min-width:85px;">项目名称</th>'
+							+'<th style="min-width:58px;">稽查开始时间</th>'
+							<!-- +'<th style="min-width:265px;">稽查结束时间</th>' -->
+							+'<th style="min-width:265px;">项目结束时间</th>'
+							+'<th style="min-width:265px;">项目经理</th>'
+							+'<th style="min-width:265px;">商务经理</th>'
+							+'<th style="min-width:265px;">协同项目经理</th>'
+							+'<th style="min-width:265px;">状态</th>'
+						+'</tr>';
+					var con = data || [];
+					for(var i=0,len=con.length;i<len;i++){
+						var d = con[i] || '';
+						var id = d.id || '';
+						var code = d.code || '';//编号
+						var name = d.name || '';//
+						var medicine = d.medicine || '';
+						var sponsor_name = d.sponsor_name || '';
+						var center_number = d.center_number || '';
+						var project_manager_name = d.project_manager_name || '';
+						var audit_start_time = getDate(d.audit_start_time || '');//稽查开始时间
+						var end_time = getDate(d.end_time || '');
+						var state = d.state || '';
+						var project_staging = d.project_staging || '';
+						var indication = d.indication || '';
+						var classification = d.classification || '';
+						var audit_type = d.audit_type || '';
+						var business_manager_name = d.business_manager_name || '';
+						var project_assist_manager = d.project_assist_manager || '';
+						html+='<tr>'
+							+'<td>'+code+'</td>'
+							+'<td>'+medicine+'</td>'
+							+'<td>'+sponsor_name+'</td>'
+							+'<td>'+audit_type+'</td>'
+							+'<td>'+classification+'</td>'
+							+'<td>'+indication+'</td>'
+							+'<td>'+project_staging+'</td>'
+							+'<td>'+name+'</td>'
+							+'<td>'+audit_start_time+'</td>'
+							<!-- +'<td>'+create_time+'</td>' -->
+							+'<td>'+end_time+'</td>'
+							+'<td>'+project_manager_name+'</td>'
+							+'<td>'+business_manager_name+'</td>'
+							+'<td>'+project_assist_manager+'</td>'
+							+'<td>'+state+'</td>'
+						+'</tr>';
+					}	
+					 html+='</table>';
+					$('#exportExcel').html(html);
+					$('#daochu').ExportExcel('exportExcel');//前面为控制按钮的id 例如 #btn，后面为table的id 例如 table(不加#)。
+					setTimeout(function(){$('#daochu').off().on('click',toExcel);},1000);
+				}
+				else{
+					var msg = data.message || "获取项目列表失败";
+					//Utils.alert(msg);
+					$('#daochu').off().on('click',toExcel);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				$('#daochu').off().on('click',toExcel);
+				if(status=='timeout'){
+		　　　　　  //Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+
+
+	//列表
+	function tableListShow(is){
+		var is = is || '';
+		var condi = {};
+		condi.taskId = g.id;
+		//condi.is_task = '';
+		condi.page = g.nowPage;//当前页
+		condi.number = 1000;//g.showPages;//每页显示行数
+		var url = Base.serverUrl + "express/getLandingTaskExpress";
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"POST",
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			dataType:'json',
+			context:this,
+			success: function(data){
+				var status = data.success || false;
+				if(status){
+					var data = data.result || '';
+					g.totalPage = data.totalPages || 0;//总页数
+					var totalElements = data.totalElements || 0;//总共中心数
+					var html = '';
+					var sstr = '';
+					html += '<table class="table1">'
+						+'<tr>'
+							+'<th class="padding_s"><div class="check_box toAll '+sstr+'"><i class="i"></i></div></th>'
+							+'<th style="min-width:26px;">编号</th>'
+							+'<th style="min-width:52px;">快递原因</th>'
+							+'<th style="min-width:52px;">快递物品</th>'
+							+'<th style="min-width:52px;">发件时间</th>'
+							+'<th style="min-width:39px;">发件人</th>'
+							+'<th style="min-width:52px;">发件信息</th>'
+							+'<th style="min-width:39px;">收件人</th>'
+							+'<th style="min-width:52px;">收件信息</th>'
+							+'<th style="min-width:52px;">快递单号</th>'
+							+'<th style="min-width:26px;">备注</th>'
+							+'<th style="min-width:152px;">操作</th>'
+						+'</tr>';
+					var con = data || [];
+					for(var i=0,len=con.length;i<len;i++){
+						var xu = len - i;
+						var d = con[i] || '';
+						var id = d.id || '';
+						var reason = d.reason || '';
+						var goods = d.goods || '';
+						var sendName = d.sendName || '';
+						var sendInfo = d.sendInfo || '';
+						var receiver = d.receiver || '';
+						var receiverInfo = d.receiverInfo || '';
+						var expressNum = d.expressNum || '';
+						var remark = d.remark || '';
+						var createTime = getDate((d.createTime || ''),'2');
+						var stra = '';
+						//判断当前项是否选中
+						for(var j=0,len1=g.ids.length;j<len1;j++){
+							var ds = g.ids[j] || '';
+							var num1 = ds[0] || '';
+							var state11 = ds[1] || 0;
+							if(id == num1 && state11 == '1'){stra = 'active'}
+						}		
+						html+='<tr>'
+							+'<td class="padding_s"><div idx="'+id+'" class="check_box tocommon '+stra+'"><i class="i"></i></div></td>'
+							+'<td>'+xu+'</td>'
+							+'<td>'+reason+'</td>'
+							+'<td>'+goods+'</td>'
+							+'<td>'+createTime+'</td>'
+							+'<td>'+sendName+'</td>'
+							+'<td>'+sendInfo+'</td>'
+							+'<td>'+receiver+'</td>'
+							+'<td>'+receiverInfo+'</td>'
+							+'<td>'+expressNum+'</td>'
+							+'<td>'+remark+'</td>'
+							+'<td class="last">';
+								html+='<a href="javascript:;" onclick="change(\''+id+'\')" class="cao_btn cao_btn1">编辑</a>';
+							    html+='<a href="javascript:;" onclick="deleteIt(\''+id+'\')" class="cao_btn cao_btn3 renwuguanli_shanchukuaidi">删除</a>';
+							html+='</td>'
+						+'</tr>';
+					}	
+					 html+='</table>';
+					$('#tableList').html(html);
+					is_show('.renwuguanli_shanchukuaidi');
+					//加载分页
+					if(g.loadPage){
+						setPages();//分页
+						if($('#Pagination').html() == ''){//判断是否显示分页跳转等
+							$('.pagesShow,.page-go,.gogo').hide();
+						}else{
+							$('.pagesShow,.page-go,.gogo').show();
+						}
+						g.loadPage = false;
+					}
+				}
+				else{
+					var msg = data.message || "获取项目信息失败";
+					//Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  //Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	//查看
+	window.change = function(id){
+		showOrChange(id,'change');
+	}
+	//查看或者修改的 公共方法
+	window.showOrChange = function(id,is){
+		var id = id || '';
+		var is = is || '';
+		if(id == ''){Utils.alert('id不能为空！');return false;}
+		var condi = {};
+		condi.id = id;
+		var url = Base.serverUrl + "express/edit";
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			dataType:'json',
+			context:this,
+			success: function(data){
+				var status = data.success || false;
+				if(status){
+					var d = data.result || {};
+					
+					reloadSbox();//初始化弹窗
+					//赋值
+					setCondiVal(d,'.xiugaizhongxin','.sbox_c');
+					var sendTime = getDate(d.sendTime || '');
+					$('#sendTime').val(sendTime);
+					//弹窗
+					var tips = '';//判断弹窗标题
+					tips = '快递信息';
+					$('#yesBtn').off().on('click',function(){centerFunc('change',d.id || '')});
+					$('.xiugaizhongxin .sbox_h4').html(tips);
+					showSbox('.xiugaizhongxin');//显示弹窗
+				}
+				else{
+					var msg = data.message || "删除失败";
+					Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+
+	//删除一项
+	window.deleteIt = function(id){
+		var id = id || '';
+		if(id == ''){Utils.alert('id不能为空！');return false;}
+		if(!confirm('确认删除吗？')){return false;}
+		var condi = {};
+		condi.id = id;
+		var url = Base.serverUrl + "express/delete";
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"POST",
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			dataType:'json',
+			context:this,
+			success: function(data){
+				var status = data.success || false;
+				if(status){
+					Utils.alert('删除成功！');
+					tableListShow(2);//列表
+				}
+				else{
+					var msg = data.message || "删除失败";
+					Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
+	
+	
+	
+	
+	
+	//设置每页显示多少行
+	$('.pagesShow').change(function(){
+		var num = $(this).val() || 10;
+		g.nowPage = 0;//回到第一页
+		g.showPages = num;
+		g.loadPage = true;//设置页面加载 配置分页
+		tableListShow();//显示列表
+	});
+	
+	$(".gogo").on("click",function(){
+    	var allPage = g.totalPage;
+    	//console.log(allPage);
+      var goPage = $(".page-go input").val() - 1; //跳转页数
+      if(goPage > -1 && goPage <= allPage){
+		g.nowPage = goPage;
+		tableListShow();//显示列表
+      }else {
+      	Utils.alert('超出范围!');
+      }
+      //清空用户跳转页数
+      //$(".page-go input").val("");
+    });
+	
+	//分页
+	function setPages(){
+		$("#Pagination").pagination(g.totalPage,{
+			callback: PageCallback, 
+			 prev_text: '<',             
+			 next_text: '>',
+			 current_page:g.nowPage
+		});
+		$('.allPage').html(g.totalPage);
+	}
+	function PageCallback(index, jq){
+		  g.nowPage = index || 0;
+		  tableListShow('pa');//列表
+	 }
+	 
+	//加载时间控件
+	var timeControl2 = {
+	  elem: '#sendTime',
+	  format: 'YYYY-MM-DD',
+	  //min: laydate.now(), //设定最小日期为当前日期
+	  max: '2099-06-16', //最大日期
+	  istime: true,
+	  istoday: false,
+	  choose: function(datas){
+		 //end.min = datas; //开始日选好后，重置结束日的最小日期
+		 //end.start = datas //将结束日的初始值设定为开始日
+	  }
+	};
+	laydate(timeControl2);
+	
+	
+});
+
+</script>
+</html>
