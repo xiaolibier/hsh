@@ -34,7 +34,40 @@ html,body{height:100%;margin:0;padding:0;font-size:17px;font-family:MicrosoftYaH
 
 body{position:relative;}
 
+.commonBody{}
+
 /* mobile6 */
+.m6{}
+.m6 .m6_head{padding:30px 0 30px 5%;position:relative;}
+.m6 .m6_head .title1{color:#000000;font-size:25px;}
+.m6 .m6_head .title2{color:#4A4A4A;padding-left:10px;font-size:13px;}
+.m6 .m6_head .bacc{display:inline-block;width:30px;height:20px;position:absolute;right:5%;top:36px;background:url('../img/m6_1.png') no-repeat center center;background-size:contain;}
+.m6 .changguan_list{}
+.m6 .cg_one{margin-bottom:30px;}
+.m6 .cg_one .cg_img{height:200px;}
+.m6 .cg_one .cg_text{text-align:center;margin:10px 0 0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
