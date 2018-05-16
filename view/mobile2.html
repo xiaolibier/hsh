@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../public/css/common.css" />
+	<title>红色汇</title>
+</head>
+<body class="commonBody m6 m2">
+	<div class="m2_head" style="background:url('../public/img/m2_1.png') no-repeat center center;background-size:cover;">
+		<span class="title1">清丰单拐英雄冀鲁豫纪念馆</span>
+	</div>
+	<div class="m2_jie">
+		<h4 class="m2j_t"><i></i>场馆介绍</h4>
+		<p class="m2j_text">
+			双清别墅地处香山南麓半山腰处，是一处景致清幽的小院，这里有着悠久的历史，“双清”二字是清代乾隆皇帝根据院内两股清泉而命名的，并题写于院内南侧 …
+		</p>
+		<div class="up_show_div"><a class="ups_a"></a></div>
+	</div>
+	<!--  -->
+	<div class="m6_head">
+		<span class="title1">场馆照片</span>
+	</div>
+	<div class="changguan_list">
+		<div class="cg_one">
+			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<span class="cgpo_t">场馆照片</span>
+		</div>
+	</div>
+	<!--  -->
+	<div class="m6_head">
+		<span class="title1">专家访谈</span>
+	</div>
+	<div class="changguan_list">
+		<div class="cg_one">
+			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<span class="cgpo_t">专家访谈</span>
+		</div>
+	</div>
+	<!--  -->
+	<div class="m6_head">
+		<span class="title1">讲解风采</span>
+	</div>
+	<div class="changguan_list">
+		<div class="cg_one">
+			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<span class="cgpo_t">讲解风采</span>
+		</div>
+	</div>
+	<!--  -->
+	<div class="m6_head">
+		<span class="title1">场馆全景</span>
+	</div>
+	<div class="changguan_list">
+		<div class="cg_one">
+			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<span class="cgpo_t">场馆全景</span>
+		</div>
+	</div>
+	<!--  -->
+	<div class="checkall"><i></i>全国各地场馆列表</div>
+	
+	<script type="text/javascript" src="../public/libs/jquery.min.js"></script>
+	<script type="text/javascript" src="../public/laydate/laydate.js"></script>
+	<script type="text/javascript" src="../public/libs/json.js"></script>
+	<script type="text/javascript" src="../public/libs/base.js"></script>
+	<script type="text/javascript" src="../public/libs/layer.js"></script>
+	<script type="text/javascript" src="../public/libs/utils.js"></script>
+	<script type="text/javascript" src="../public/js/common2.js"></script>
+	
+</body>
+
+<script>
+$(function(){
+	var g = {};
+	g.login_token = Utils.offLineStore.get("token",false) || "";
+	//g.id = Utils.getQueryString("id") || "";
+	g.httpTip = new Utils.httpTip({});
+	g.totalPage = 1;//存总页数
+	g.nowPage = 0;//存当前页 0 是第一页
+	g.showPages = 10;//每页显示多少行
+	
+/* **************************************** lodding ******************************************** */	
+	
+	
+	loadPage();
+
+	
+	
+/* **************************************** setTing ******************************************** */	
+
+	//加载页面
+	function loadPage(){
+		
+	}
+
+});
+
+</script>
+</html>
