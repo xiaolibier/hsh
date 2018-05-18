@@ -12,9 +12,10 @@
 	<title>红色汇</title>
 </head>
 <body class="commonBody m1">
-	<div class="m1_bg_div" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;">
+	<div class="m1_bg_div" id="venue_bg" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;">
 		<div class="m1t_bg"></div>
-		<h4 class="m1_t"><i style="background:url('../public/img/m1_3.png') no-repeat center center;background-size:cover;"></i><span class="m1t_t">淮海战役陈官庄地区歼灭战纪念馆</span></h4>
+		<h4 class="m1_t"><i style="background:url('../public/img/m1_3.png') no-repeat center center;background-size:cover;"></i>
+		<span id="venue_name" class="m1t_t">淮海战役陈官庄地区歼灭战纪念馆</span></h4>
 		<a href="javascript:;" class="online_a1">在线参观</a>
 		<a href="javascript:;" class="online_a2">查看全国场馆</a>
 		
@@ -33,7 +34,7 @@
 $(function(){
 	var g = {};
 	g.login_token = Utils.offLineStore.get("token",false) || "";
-	//g.id = Utils.getQueryString("id") || "";
+	g.id = Utils.getQueryString("id") || "";
 	g.httpTip = new Utils.httpTip({});
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
@@ -43,15 +44,69 @@ $(function(){
 	
 	
 	loadPage();
-
+	
+	
 	
 	
 /* **************************************** setTing ******************************************** */	
 
 	//加载页面
 	function loadPage(){
-		
+		getvenue();//获取场馆信息
 	}
+	
+	
+	//在线参观按钮
+	$('.online_a1').on('click',function(){
+		
+	});
+	
+	//查看全国场馆按钮
+	$('.online_a2').on('click',function(){
+		location.href="mobile5.html";
+	});
+	
+	//获取场馆信息
+	function getvenue(){
+		var id = g.id || '';
+		if(id == ''){Utils.alert('id不能为空！');return false;}
+		var condi = {};
+		condi.id = id;
+		var url = Base.serverUrl + "venue/"+id+'/';
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			context:this,
+			success: function(data){
+				console.log(data);
+				if(data){
+					var d = data || {};
+					var id = d.id || '';
+					var name = d.name || '';
+					var image_url = d.image_url	|| '';
+					
+					$('#venue_bg').css({'background':'url('+image_url+') no-repeat center center','background-size':'cover'});
+					$('#venue_name').html(name);
+				}
+				else{
+					var msg = data.message || "获取失败";
+					Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
 
 });
 

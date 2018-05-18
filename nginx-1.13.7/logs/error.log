@@ -1,0 +1,21 @@
+2018/05/18 16:42:38 [emerg] 14840#11604: BIO_new_file("D:/nginx-1.13.7/conf/cert/214332390010603.pem") failed (SSL: error:02001003:system library:fopen:No such process:fopen('D:/nginx-1.13.7/conf/cert/214332390010603.pem','r') error:2006D080:BIO routines:BIO_new_file:no such file)
+2018/05/18 16:44:54 [notice] 9524#6728: signal process started
+2018/05/18 16:44:54 [error] 9524#6728: OpenEvent("Global\ngx_reload_4500") failed (2: The system cannot find the file specified)
+2018/05/18 16:46:18 [emerg] 14088#1648: unexpected end of file, expecting ";" or "}" in E:\nginx-1.13.7/conf/nginx.conf:89
+2018/05/18 16:47:10 [notice] 11192#16376: signal process started
+2018/05/18 16:47:10 [error] 11192#16376: OpenEvent("Global\ngx_reload_4500") failed (2: The system cannot find the file specified)
+2018/05/18 16:51:37 [notice] 12252#10512: signal process started
+2018/05/18 16:51:52 [error] 3060#2248: *1 CreateFile() "D:\web\hsh/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8081"
+2018/05/18 16:52:15 [notice] 14728#13420: signal process started
+2018/05/18 16:52:15 [emerg] 7012#7700: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2018/05/18 16:52:40 [notice] 15156#12556: signal process started
+2018/05/18 16:55:12 [notice] 2592#6184: signal process started
+2018/05/18 16:57:27 [notice] 8464#7284: signal process started
+2018/05/18 16:58:12 [notice] 2092#1212: signal process started
+2018/05/18 16:58:24 [error] 11324#6804: *34 CreateFile() "D:\web\hsh/hsh/view/mobile1.html" failed (3: The system cannot find the path specified), client: 192.168.1.20, server: localhost, request: "GET /hsh/view/mobile1.html?id=13 HTTP/1.1", host: "192.168.1.20"
+2018/05/18 16:58:26 [error] 11324#6804: *34 CreateFile() "D:\web\hsh/hsh/view/mobile1.html" failed (3: The system cannot find the path specified), client: 192.168.1.20, server: localhost, request: "GET /hsh/view/mobile1.html?id=13 HTTP/1.1", host: "192.168.1.20"
+2018/05/18 17:12:58 [error] 11324#6804: *40 CreateFile() "D:\web\hsh/static/css/reset.css" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /static/css/reset.css HTTP/1.1", host: "localhost", referrer: "http://localhost/proxy/view/mobile1.html?id=12"
+2018/05/18 17:12:58 [error] 11324#6804: *40 CreateFile() "D:\web\hsh/static/css/animate.css" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /static/css/animate.css HTTP/1.1", host: "localhost", referrer: "http://localhost/proxy/view/mobile1.html?id=12"
+2018/05/18 17:12:58 [error] 11324#6804: *40 CreateFile() "D:\web\hsh/static/css/style.css" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /static/css/style.css HTTP/1.1", host: "localhost", referrer: "http://localhost/proxy/view/mobile1.html?id=12"
+2018/05/18 17:12:58 [error] 11324#6804: *42 CreateFile() "D:\web\hsh/static/js/jquery.min.js" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /static/js/jquery.min.js HTTP/1.1", host: "localhost", referrer: "http://localhost/proxy/view/mobile1.html?id=12"
+2018/05/18 17:12:58 [error] 11324#6804: *40 CreateFile() "D:\web\hsh/static/images/pic404.png" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /static/images/pic404.png HTTP/1.1", host: "localhost", referrer: "http://localhost/proxy/view/mobile1.html?id=12"

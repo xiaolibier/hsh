@@ -322,7 +322,7 @@ $(function(){
 	
 	//获取七牛云上传的地址和凭证
 	//七牛云上传
-	setqiniu();
+	//setqiniu();
 	function setqiniu(pas){
 		//var bid = bid || '';//上传按钮id 不带#
 		//var type = type || '';//资源类型 1课件资源 2或其他 其他资源
