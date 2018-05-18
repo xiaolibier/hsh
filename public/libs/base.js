@@ -20,7 +20,7 @@
 	var phoneNumber = "";
 
 	//请求服务地址
-	var serverUrl = "http://localhost/proxy/api/";//
+	var serverUrl = "http://localhost:8081/proxy/api/";//
 
 	
 	

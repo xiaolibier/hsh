@@ -82,12 +82,11 @@ $(function(){
 			dataType:'json',
 			context:this,
 			success: function(data){
-				console.log(data);
 				if(data){
 					var d = data || {};
 					var id = d.id || '';
 					var name = d.name || '';
-					var image_url = d.image_url	|| '';
+					var image_url = d.image_url	|| '../public/img/m2_1.png';
 					
 					$('#venue_bg').css({'background':'url('+image_url+') no-repeat center center','background-size':'cover'});
 					$('#venue_name').html(name);
