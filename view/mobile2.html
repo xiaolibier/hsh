@@ -11,13 +11,12 @@
 	<title>红色汇</title>
 </head>
 <body class="commonBody m6 m2">
-	<div class="m2_head" style="background:url('../public/img/m2_1.png') no-repeat center center;background-size:cover;">
-		<span class="title1">清丰单拐英雄冀鲁豫纪念馆</span>
+	<div class="m2_head" id="venue_bg" style="background:url('../public/img/m2_1.png') no-repeat center center;background-size:cover;">
+		<span id="venue_name" class="title1">清丰单拐英雄冀鲁豫纪念馆</span>
 	</div>
 	<div class="m2_jie">
 		<h4 class="m2j_t"><i></i>场馆介绍</h4>
-		<p class="m2j_text">
-			双清别墅地处香山南麓半山腰处，是一处景致清幽的小院，这里有着悠久的历史，“双清”二字是清代乾隆皇帝根据院内两股清泉而命名的，并题写于院内南侧 …
+		<p id="desc" class="m2j_text">
 		</p>
 		<div class="up_show_div"><a class="ups_a"></a></div>
 	</div>
@@ -27,7 +26,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img1" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">场馆照片</span>
 		</div>
 	</div>
@@ -37,7 +36,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img2" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">专家访谈</span>
 		</div>
 	</div>
@@ -47,7 +46,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img3" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">讲解风采</span>
 		</div>
 	</div>
@@ -57,7 +56,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img4" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">场馆全景</span>
 		</div>
 	</div>
@@ -78,7 +77,8 @@
 $(function(){
 	var g = {};
 	g.login_token = Utils.offLineStore.get("token",false) || "";
-	//g.id = Utils.getQueryString("id") || "";
+	g.id = Utils.getQueryString("id") || "";
+	if(g.id == ''){g.id = Utils.offLineStore.get("venueaid",false);}
 	g.httpTip = new Utils.httpTip({});
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
@@ -88,15 +88,115 @@ $(function(){
 	
 	
 	loadPage();
-
+	//全国各地场馆列表
+	$('.checkall').on('click',function(){
+		location.href="mobile5.html";
+	});
 	
 	
 /* **************************************** setTing ******************************************** */	
 
 	//加载页面
 	function loadPage(){
-		
+		getvenue();//获取场馆信息
+		getvenueother1();//获取场馆其他部分列表
 	}
+	
+	//展开场馆介绍
+	$('.up_show_div').on('click',function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+			$('#desc').removeClass('down');
+		}else{
+			$(this).addClass('active');
+			$('#desc').addClass('down');
+		}	
+	});
+	
+	//获取场馆其他部分列表
+	//场馆照片
+	function getvenueother1(){
+		
+		var condi = {};
+		condi.org_id = g.id;
+		var url = Base.serverUrl + "interview/";
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			context:this,
+			success: function(data){
+				if(data){
+					var d = data || {};
+					var id = d.id || '';
+					var name = d.name || '';
+					var desc = d.desc || '';
+					var image_url = d.image_url	|| '../public/img/m2_1.png';
+					
+					
+					$('.cg_img1').css({'background':'url('+image_url+') no-repeat center center','background-size':'cover'});
+				}	
+				else{
+					var msg = data.message || "获取失败";
+					//Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
+	//获取场馆信息
+	function getvenue(){
+		var id = g.id || '';
+		if(id == ''){Utils.alert('id不能为空！');return false;}
+		var condi = {};
+		condi.id = id;
+		var url = Base.serverUrl + "venue/"+id+'/';
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			context:this,
+			success: function(data){
+				if(data){
+					var d = data || {};
+					var id = d.id || '';
+					var name = d.name || '';
+					var desc = d.desc || '';
+					var image_url = d.image_url	|| '../public/img/m2_1.png';
+					
+					$('#venue_bg').css({'background':'url('+image_url+') no-repeat center center','background-size':'cover'});
+					$('#venue_name').html(name);
+					$('#desc').html('<div class="hei">'+desc+'</div>');
+					if($('#desc').find('.hei').height() > 131){$('.up_show_div').fadeIn();}
+				}
+				else{
+					var msg = data.message || "获取失败";
+					Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
 
 });
 

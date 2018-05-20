@@ -84,9 +84,11 @@ body{position:relative;}
 .m2 .m2_jie{position:relative;background-color:#ffffff;padding-top:21px;margin-top:-30px;margin-bottom:30px;border-top-left-radius:32px;border-top-right-radius:32px;}
 .m2 .m2_jie .m2j_t{margin-bottom:21px;text-align:center;color:#4A4A4A;font-size:22px;}
 .m2 .m2_jie .m2j_t i{display:inline-block;vertical-align:middle;width:32px;height:32px;margin-right:12px;background:url('../img/m2_2.png') no-repeat center center;background-size:contain;}
-.m2 .m2_jie .m2j_text{margin:0 3%;font-size:18px;line-height:26px;color:#9B9B9B;}
-.up_show_div{text-align:center;}
+.m2 .m2_jie .m2j_text{transition:all .25s ease-in-out;height:131px;overflow:hidden;margin:0 3%;font-size:18px;line-height:26px;color:#9B9B9B;}
+.m2 .m2_jie .m2j_text.down{height:auto;}
+.up_show_div{text-align:center;display:none;}
 .up_show_div .ups_a{display:inline-block;width:21px;height:12px;background:url('../img/m2_3.png') no-repeat center center;background-size:contain;}
+.up_show_div.active .ups_a{display:inline-block;width:21px;height:12px;background:url('../img/m2_30.png') no-repeat center center;background-size:contain;}
 
 .cgpo_t{position:absolute;color:#ffffff;background-color:#DE422E;right:9%;bottom:22px;padding:5px 15px;border-radius:30px;}
 .m2 .changguan_list{margin:0px 0 35px;}

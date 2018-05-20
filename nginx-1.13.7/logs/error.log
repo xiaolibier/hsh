@@ -19,3 +19,19 @@
 2018/05/18 17:12:58 [error] 11324#6804: *40 CreateFile() "D:\web\hsh/static/css/style.css" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /static/css/style.css HTTP/1.1", host: "localhost", referrer: "http://localhost/proxy/view/mobile1.html?id=12"
 2018/05/18 17:12:58 [error] 11324#6804: *42 CreateFile() "D:\web\hsh/static/js/jquery.min.js" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /static/js/jquery.min.js HTTP/1.1", host: "localhost", referrer: "http://localhost/proxy/view/mobile1.html?id=12"
 2018/05/18 17:12:58 [error] 11324#6804: *40 CreateFile() "D:\web\hsh/static/images/pic404.png" failed (3: The system cannot find the path specified), client: 127.0.0.1, server: localhost, request: "GET /static/images/pic404.png HTTP/1.1", host: "localhost", referrer: "http://localhost/proxy/view/mobile1.html?id=12"
+2018/05/19 19:22:31 [emerg] 3780#5092: CreateDirectory() "D:\web\hsh\nginx-1.13.7/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2018/05/19 19:22:41 [notice] 2248#2744: signal process started
+2018/05/19 19:22:41 [error] 2248#2744: OpenEvent("Global\ngx_reload_7012") failed (2: The system cannot find the file specified)
+2018/05/19 19:23:17 [emerg] 2208#2884: CreateDirectory() "D:\web\hsh\nginx-1.13.7/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2018/05/19 19:23:31 [emerg] 5828#4480: CreateDirectory() "D:\web\hsh\nginx-1.13.7/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2018/05/19 19:25:05 [emerg] 5368#3248: CreateDirectory() "D:\web\hsh\nginx-1.13.7/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2018/05/19 19:25:20 [notice] 2052#520: signal process started
+2018/05/19 19:25:20 [error] 2052#520: OpenEvent("Global\ngx_reload_7012") failed (2: The system cannot find the file specified)
+2018/05/19 19:27:16 [notice] 5256#848: signal process started
+2018/05/19 19:27:16 [error] 5256#848: OpenEvent("Global\ngx_stop_7012") failed (2: The system cannot find the file specified)
+2018/05/19 19:27:29 [emerg] 2060#2748: CreateDirectory() "D:\web\hsh\nginx-1.13.7/temp/client_body_temp" failed (3: The system cannot find the path specified)
+2018/05/19 19:28:13 [notice] 4084#164: signal process started
+2018/05/19 19:28:13 [error] 4084#164: OpenEvent("Global\ngx_reload_7012") failed (2: The system cannot find the file specified)
+2018/05/19 19:53:32 [notice] 1264#6100: signal process started
+2018/05/19 19:53:32 [error] 1264#6100: OpenEvent("Global\ngx_reload_7012") failed (2: The system cannot find the file specified)
+2018/05/19 19:53:53 [emerg] 3532#2072: CreateDirectory() "D:\web\hsh\nginx-1.13.7/temp/client_body_temp" failed (3: The system cannot find the path specified)

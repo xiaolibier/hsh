@@ -58,7 +58,8 @@ $(function(){
 	
 	//在线参观按钮
 	$('.online_a1').on('click',function(){
-		
+		Utils.offLineStore.set("venueaid",g.id,false);//存储当前场馆
+		location.href="mobile2.html?id="+g.id;
 	});
 	
 	//查看全国场馆按钮
