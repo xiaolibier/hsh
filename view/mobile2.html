@@ -11,8 +11,8 @@
 	<title>红色汇</title>
 </head>
 <body class="commonBody m6 m2">
-	<div class="m2_head" id="venue_bg" style="background:url('../public/img/m2_1.png') no-repeat center center;background-size:cover;">
-		<span id="venue_name" class="title1">清丰单拐英雄冀鲁豫纪念馆</span>
+	<div class="m2_head" id="venue_bg" style="background:url('../public/img/no.jpg') no-repeat center center;background-size:cover;">
+		<span id="venue_name" class="title1"></span>
 	</div>
 	<div class="m2_jie">
 		<h4 class="m2j_t"><i></i>场馆介绍</h4>
@@ -21,7 +21,7 @@
 		<div class="up_show_div"><a class="ups_a"></a></div>
 	</div>
 	<!--  -->
-	<div class="m6_head">
+	<div class="m6_head m6_head1">
 		<span class="title1">场馆照片</span>
 	</div>
 	<div class="changguan_list">
@@ -31,7 +31,7 @@
 		</div>
 	</div>
 	<!--  -->
-	<div class="m6_head">
+	<div class="m6_head m6_head2">
 		<span class="title1">专家访谈</span>
 	</div>
 	<div class="changguan_list">
@@ -41,7 +41,7 @@
 		</div>
 	</div>
 	<!--  -->
-	<div class="m6_head">
+	<div class="m6_head m6_head3">
 		<span class="title1">讲解风采</span>
 	</div>
 	<div class="changguan_list">
@@ -51,7 +51,7 @@
 		</div>
 	</div>
 	<!--  -->
-	<div class="m6_head">
+	<div class="m6_head m6_head4">
 		<span class="title1">场馆全景</span>
 	</div>
 	<div class="changguan_list">
@@ -83,6 +83,7 @@ $(function(){
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
+	var urls = ['','photo/','interview/','video/','pano/'];
 	
 /* **************************************** lodding ******************************************** */	
 	
@@ -99,7 +100,10 @@ $(function(){
 	//加载页面
 	function loadPage(){
 		getvenue();//获取场馆信息
-		getvenueother1();//获取场馆其他部分列表
+		getvenueother(1);//获取场馆照片
+		getvenueother(2);//获取访谈列表
+		getvenueother(3);//获取讲解风采
+		getvenueother(4);//获取全景展示
 	}
 	
 	//展开场馆介绍
@@ -114,12 +118,16 @@ $(function(){
 	});
 	
 	//获取场馆其他部分列表
-	//场馆照片
-	function getvenueother1(){
-		
+	
+	
+	//获取列表 1场馆照片、2专家访谈、3讲解风采、4场馆全景
+	
+	function getvenueother(n){
+		var n = n || 1;
+		var ur = urls[n] || '';
 		var condi = {};
 		condi.org_id = g.id;
-		var url = Base.serverUrl + "interview/";
+		var url = Base.serverUrl +ur;
 		//g.httpTip.show();
 		$.ajax({
 			url:url,
@@ -130,14 +138,25 @@ $(function(){
 			context:this,
 			success: function(data){
 				if(data){
-					var d = data || {};
-					var id = d.id || '';
-					var name = d.name || '';
-					var desc = d.desc || '';
-					var image_url = d.image_url	|| '../public/img/m2_1.png';
-					
-					
-					$('.cg_img1').css({'background':'url('+image_url+') no-repeat center center','background-size':'cover'});
+					var count = data.count || 0;
+					if(count > 0){
+						var data = data.results || [];
+						var html = '';
+						var img = '../public/img/no.jpg';
+						for(var i=0,len=data.length;i<len;i++){
+							var d = data[i] || '';
+							var id = d.id || '';
+							var image_url = d.image_url || '../public/img/no.jpg';
+							if(i==0){img = image_url}//获取第一张照片
+						}
+						$('.cg_img'+n).css({'background':'url('+img+') no-repeat center center','background-size':'cover'}).on('click',function(){
+							Utils.offLineStore.set("venuep",g.id,false);//存储当前场馆
+							location.href="mobile3.html?id="+g.id+'&p='+n;
+						});
+					}else{
+						$('.m6_head'+n).hide();
+						$('.cg_img'+n).parents('.changguan_list').hide();
+					}		
 				}	
 				else{
 					var msg = data.message || "获取失败";

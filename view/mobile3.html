@@ -12,20 +12,18 @@
 </head>
 <body class="commonBody m6 m3">
 	<div class="m6_head">
-		<span class="title1">场馆照片</span>
+		<span id="p_name" class="title1"></span>
 		<!-- <span class="title2">已入住18家场馆</span> -->
-		<a href="javascript:;" class="bacc"></a>
+		<a href="javascript:;" id="backgo" class="bacc"></a>
 	</div>
-	<div class="changguan_list">
-		<div class="cg_one">
+	<div id="vue_list" class="changguan_list">
+		<!-- <div class="cg_one">
 			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
-			<!-- <div class="cg_text">北京鲁迅博物馆</div> -->
 		</div>
 		<div class="cg_one">
 			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
-			<!-- <div class="cg_text">北京鲁迅博物馆</div> -->
-		</div>
-		<div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div>
+		</div> -->
+		<!-- <div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div> -->
 	</div>
 	
 	
@@ -43,24 +41,87 @@
 $(function(){
 	var g = {};
 	g.login_token = Utils.offLineStore.get("token",false) || "";
-	//g.id = Utils.getQueryString("id") || "";
+	g.id = Utils.getQueryString("id") || "";//场馆id
+	if(g.id == ''){g.id = Utils.offLineStore.get("venueaid",false);}
+	g.p = Utils.getQueryString("p") || "";//获取当前是第几个 1场馆照片、2专家访谈、3讲解风采、4场馆全景
+	if(g.p == ''){g.p = Utils.offLineStore.get("venuep",false);}
 	g.httpTip = new Utils.httpTip({});
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
+	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆全景'];
+	var usrs = ['','photo/','interview/','video/','pano/'];
 	
 /* **************************************** lodding ******************************************** */	
 	
 	
 	loadPage();
-
+	//返回按钮
+	$('#backgo').on('click',function(){
+		location.href="./mobile2.html?id="+g.id;
+	});
 	
 	
 /* **************************************** setTing ******************************************** */	
 
 	//加载页面
 	function loadPage(){
-		
+		getvenueother(g.p);//获取列表 1场馆照片、2专家访谈、3讲解风采、4场馆全景
+		$('#p_name').html(g.p_name[g.p]);//填充标题
+	}
+	//获取列表 1场馆照片、2专家访谈、3讲解风采、4场馆全景
+	
+	function getvenueother(n){
+		var n = n || 1;
+		var condi = {};
+		condi.org_id = g.id;
+		var url = Base.serverUrl + usrs[n];
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			context:this,
+			success: function(data){
+				if(data){
+					var count = data.count || 0;
+					if(count > 0){
+						var data = data.results || [];
+						var html = '';
+						for(var i=0,len=data.length;i<len;i++){
+							var d = data[i] || '';
+							var id = d.id || '';
+							var image_url = d.image_url || '../public/img/no.jpg';
+							var video_url = d.video_url || '';
+							if(n != 3){video_url = image_url;}//第三个是点击跳转视频
+							
+							html+='<div class="cg_one"><a href="'+video_url+'">'
+									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+								+'</a></div>';
+						}
+						$('#vue_list').html(html);
+					}	
+				}	
+				else{
+					var msg = data.message || "获取失败";
+					//Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	//点击打开
+	window.openurl = function(url){
+		var url = url || '';
+		window.open(url);
 	}
 
 });
