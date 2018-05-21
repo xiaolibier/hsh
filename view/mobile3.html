@@ -83,6 +83,7 @@ $(function(){
 			timeout: 30000, //超时时间设置，单位毫秒
 			type:"GET",
 			dataType:'json',
+			async: false,
 			context:this,
 			success: function(data){
 				if(data){
@@ -94,8 +95,15 @@ $(function(){
 							var d = data[i] || '';
 							var id = d.id || '';
 							var image_url = d.image_url || '../public/img/no.jpg';
+							var image_min_url = d.image_min_url || '../public/img/no.jpg';
 							var video_url = d.video_url || '';
-							if(n != 3){video_url = image_url;}//第三个是点击跳转视频
+							var pano_url = d.pano_url || '';
+							var org = d.org || '';
+							var image_url2 = org.image_url || '../public/img/no.jpg';//全景预览图片
+							if(n == 1){image_url = image_min_url;video_url = image_max_url;}//第一个是场馆图片
+							if(n == 2){video_url = image_url;}//第二个是访谈图片
+							//if(n == 3){}//第三个是点击跳转讲解视频
+							if(n == 4){video_url = pano_url;image_url = image_url2;}//第四个是点击跳转全景
 							
 							html+='<div class="cg_one"><a href="'+video_url+'">'
 									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'

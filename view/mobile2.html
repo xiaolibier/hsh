@@ -136,6 +136,7 @@ $(function(){
 			type:"GET",
 			dataType:'json',
 			context:this,
+			async: false,
 			success: function(data){
 				if(data){
 					var count = data.count || 0;
@@ -188,6 +189,7 @@ $(function(){
 			type:"GET",
 			dataType:'json',
 			context:this,
+			async: false,
 			success: function(data){
 				if(data){
 					var d = data || {};
