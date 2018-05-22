@@ -148,7 +148,9 @@ $(function(){
 							var d = data[i] || '';
 							var id = d.id || '';
 							var image_url = d.image_url || '../public/img/no.jpg';
+							var image_min_url = d.image_min_url || '../public/img/no.jpg';
 							if(i==0){img = image_url}//获取第一张照片
+							if(n==1 && i==0){img = image_min_url}//获取第一张照片
 						}
 						$('.cg_img'+n).css({'background':'url('+img+') no-repeat center center','background-size':'cover'}).on('click',function(){
 							Utils.offLineStore.set("venuep",g.id,false);//存储当前场馆
