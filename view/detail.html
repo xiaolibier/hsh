@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../public/css/common.css" />
+	<title>红色汇</title>
+</head>
+<body class="commonBody m6 m4">
+	<div class="m6_head">
+		<span class="title1">详情</span>
+		<!-- <span class="title2">已入住18家场馆</span> -->
+		<a id="backgo" href="javascript:;" class="bacc"></a>
+	</div>
+	<div id="details" class="changguan_list">
+		
+	</div>
+	
+	
+	<script type="text/javascript" src="../public/libs/jquery.min.js"></script>
+	<script type="text/javascript" src="../public/laydate/laydate.js"></script>
+	<script type="text/javascript" src="../public/libs/json.js"></script>
+	<script type="text/javascript" src="../public/libs/base.js"></script>
+	<script type="text/javascript" src="../public/libs/layer.js"></script>
+	<script type="text/javascript" src="../public/libs/utils.js"></script>
+	<script type="text/javascript" src="../public/js/common2.js"></script>
+	
+</body>
+
+<script>
+$(function(){
+	var g = {};
+	//g.login_token = Utils.offLineStore.get("token",false) || "";
+	g.id = Utils.getQueryString("id") || "";
+	g.httpTip = new Utils.httpTip({});
+	g.totalPage = 1;//存总页数
+	g.nowPage = 0;//存当前页 0 是第一页
+	g.showPages = 10;//每页显示多少行
+	
+/* **************************************** lodding ******************************************** */	
+	
+	
+	loadPage();
+	//返回按钮
+	$('#backgo').on('click',function(){
+		location.href="./mobile3.html?id=index&p=5";
+		
+	});
+	
+	
+/* **************************************** setTing ******************************************** */	
+
+	//加载页面
+	function loadPage(){
+		getvenue();//获取详情
+		
+	}
+	
+	//获取详情
+	function getvenue(){
+		var id = g.id || '';
+		if(id == ''){Utils.alert('id不能为空！');return false;}
+		var condi = {};
+		condi.id = id;
+		var url = Base.serverUrl + "article_detail/";
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			context:this,
+			async: false,
+			success: function(data){
+				if(data){
+					var count = data.count || 0;
+					if(count > 0){
+						var data = data.results || [];
+						var html = '';
+						var text = '';
+						for(var i=0,len=data.length;i<len;i++){
+							var d = data[i] || '';
+							var id = d.id || '';
+							var name = d.name || '';
+							var desc = d.desc || '';
+							var detail = d.detail || '';
+							if(detail != ''){desc = detail;}
+							if(i==0){
+							  html+='<div class="cg_one">'
+									+'<div class="cg_text" style="text-align:left;padding:0 3%;color:#283B42;font-size:24px;">'+name+'</div>'
+									+'<div class="cg_img" style="color:#9B9B9B;height:auto;overflow:hidden;font-size:16px;margin:10px 3%;" >'+desc+'</div>'
+								+'</div>';
+							}//获取第一个
+						}
+						$('#details').html(html);
+						
+					}else{
+						
+					}		
+				}	
+				else{
+					var msg = data.message || "获取失败";
+					Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
+
+});
+
+</script>
+</html>

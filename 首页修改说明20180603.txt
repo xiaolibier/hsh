@@ -1,0 +1,54 @@
+红色汇首页说明：
+1.场馆列表
+下拉或者搜索筛选
+ http://www.hongsehui.cn/api/venue/
+ 点击某个场馆，跳转到场馆的页面（场馆照片、专家访谈、讲解风采、场馆全景）
+ 
+ 2.图册
+ 所有照片列表 http://www.hongsehui.cn/api/photo/
+ 3.视频
+ 所有视频列表 http://www.hongsehui.cn/api/video/
+ 4.全景
+ 所有全景列表 http://www.hongsehui.cn/api/pano/
+ 5.讲解
+ 所有讲解风采的列表 http://www.hongsehui.cn/api/guide/
+ 
+ 6.热门场馆推荐
+ 用场馆列表选取5个，循环播放，点击“更多”的时候，跳转到场馆列表页面
+ http://www.hongsehui.cn/api/venue/ 
+ 
+ 7.动态 【非常重要】【补充说明】（http://www.hongsehui.cn/api/article_detail/?org_id=&id=82）
+ 只有id=82有富文本数据
+ 点击场馆动态，调用http://www.hongsehui.cn/api/article
+ 显示场馆文章列表，显示场馆名称，场馆描述，没有图片
+ 7.1 点击某一个条动态，用富文本页面显示
+http://www.hongsehui.cn/api/article_detail/?org_id=&id=3
+这里detail 是富文本信息（接口返回数据为空）
+image_url为空
+
+8.访谈
+ 点击之后，跳转到专家访谈页面
+  调用接口http://www.hongsehui.cn/api/interview/
+
+9.机构
+ 点击之后，跳转到相关机构页面 
+http://www.hongsehui.cn/api/association/
+目前返回为空
+
+10.摄影
+ 点击后，跳转到图片页面
+ http://www.hongsehui.cn/api/photo/
+ 
+ 
+ 
+ 其他接口需求
+ 1.需要增加热门场馆推荐 的接口
+   答复：随机返回5个 http://www.hongsehui.cn/api/venue_popular/
+ 2.场馆搜索接口，需要输入场馆名称，模糊搜索，其中场馆名称模糊搜索项为可选项，就是不加的话不会报错。 http://www.hongsehui.cn/api/venue/
+  答复：这个可以直接模糊搜索，http://www.hongsehui.cn/api/venue/?search=宋庆龄
+ 3.机构接口为空，需要数据
+  答复：明天增加机构数据
+
+ 
+ 
+ 

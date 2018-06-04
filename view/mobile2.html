@@ -153,7 +153,7 @@ $(function(){
 							if(n==1 && i==0){img = image_min_url}//获取第一张照片
 						}
 						$('.cg_img'+n).css({'background':'url('+img+') no-repeat center center','background-size':'cover'}).on('click',function(){
-							Utils.offLineStore.set("venuep",g.id,false);//存储当前场馆
+							Utils.offLineStore.set("venuep",n,false);//存储分类p
 							location.href="mobile3.html?id="+g.id+'&p='+n;
 						});
 					}else{

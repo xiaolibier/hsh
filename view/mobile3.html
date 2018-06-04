@@ -14,6 +14,7 @@
 	<div class="m6_head">
 		<span id="p_name" class="title1"></span>
 		<!-- <span class="title2">已入住18家场馆</span> -->
+		<input id="ser_input" class="sle_input" placeholder="点击搜索" type="text" />
 		<a href="javascript:;" id="backgo" class="bacc"></a>
 	</div>
 	<div id="vue_list" class="changguan_list">
@@ -49,8 +50,8 @@ $(function(){
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
-	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆全景'];
-	var usrs = ['','photo/','interview/','video/','pano/'];
+	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆全景','场馆动态','相关机构'];
+	var usrs = ['','photo/','interview/','video/','pano/','article/','association/'];
 	
 /* **************************************** lodding ******************************************** */	
 	
@@ -58,7 +59,12 @@ $(function(){
 	loadPage();
 	//返回按钮
 	$('#backgo').on('click',function(){
-		location.href="./mobile2.html?id="+g.id;
+		if(g.id == 'index' && g.p != ''){//判断是首页跳过来的
+			location.href="./index.html";
+		}else{
+			location.href="./mobile2.html?id="+g.id;
+		}
+		
 	});
 	
 	
@@ -71,10 +77,19 @@ $(function(){
 	}
 	//获取列表 1场馆照片、2专家访谈、3讲解风采、4场馆全景
 	
-	function getvenueother(n){
+	//搜索框输入
+	$('#ser_input').keyup(function(){
+		var _val = $(this).val() || '';
+		getvenueother(g.p,_val);
+	
+	});
+	
+	function getvenueother(n,ser){
 		var n = n || 1;
+		var ser = ser || '';
 		var condi = {};
-		condi.org_id = g.id;
+		if(g.id != 'index')condi.org_id = g.id;
+		condi.search = ser;
 		var url = Base.serverUrl + usrs[n];
 		//g.httpTip.show();
 		$.ajax({
@@ -100,6 +115,8 @@ $(function(){
 							var video_url = d.video_url || '';
 							var pano_url = d.pano_url || '';
 							var org = d.org || '';
+							var name = d.name || '';
+							var desc = d.desc || '';
 							var image_url2 = org.image_url || '../public/img/no.jpg';//全景预览图片
 							if(n == 1){image_url = image_min_url;video_url = image_max_url;}//第一个是场馆图片
 							if(n == 2){video_url = image_url;}//第二个是访谈图片
@@ -107,12 +124,20 @@ $(function(){
 							if(n == 4){
 								video_url = pano_url;
 								if(video_url != '' && video_url.indexOf('http:') <= -1){video_url = 'http://'+video_url;}
-								image_url = image_url2;
+								//image_url = image_url2;
 							}//第四个是点击跳转全景
 							
-							html+='<div class="cg_one"><a href="'+video_url+'">'
-									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+							if(n == 5){//第5个是动态	
+								html+='<div class="cg_one"><a href="detail.html?id='+id+'">'
+									+'<div class="cg_text" style="text-align:left;padding:0 3%;color:#283B42;font-size:24px;">'+name+'</div>'
+									+'<div class="cg_img" style="color:#9B9B9B;height:44px;overflow:hidden;font-size:16px;margin:10px 3%;" >'+desc+'</div>'
 								+'</a></div>';
+							}else{
+								html+='<div class="cg_one"><a href="'+video_url+'">'
+									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+									+'<div class="cg_text">'+name+'</div>'
+								+'</a></div>';
+							}
 						}
 						$('#vue_list').html(html);
 					}	
