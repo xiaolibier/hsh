@@ -73,9 +73,35 @@ $(function(){
 
 	//获取当前位置
 	function getpoi(){
-		var city = remote_ip_info['city'];
-		if(city == ''){city = '获取位置失败';}
-		$('#poicity').html(city);
+		//var city = remote_ip_info['city'];
+		//if(city == ''){city = '获取位置失败';}
+		//$('#poicity').html(city);
+		 $.ajax({
+			url:'http://api.map.baidu.com/location/ip?ak=5cf32b027c8927baa94c0fc655ab422a&qq-pf-to=pcqq.discussion',
+			data:'',
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'jsonp',
+			context:this,
+			success: function(data){
+				if(data){
+					var cityName = data.content.address || '';
+					$("#poicity").html(cityName);  
+				}
+				else{
+					var msg = data.message || "获取失败";
+					//Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+		 
 	}
 	
 	

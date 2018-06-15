@@ -120,8 +120,10 @@ $(function(){
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
-	var urls = ['','photo/','interview/','video/','pano/','article/','association/'];
-	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆全景','场馆动态','相关机构'];
+	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆视频','场馆全景','场馆动态','场馆动态列表','相关机构'];
+	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/'];
+
+	
 	//加载banner图
 	$('#full_feature').swipeslider({
 		        transitionDuration: 600,
@@ -141,8 +143,8 @@ $(function(){
 		getHotVenue();//获取热门场馆列表
 		getvenueother(1);//摄影
 		getvenueother(2);//访谈
-		getvenueother(5);//动态
-		getvenueother(6);//机构
+		getvenueother(7);//动态
+		getvenueother(8);//机构
 	}
 
 	//搜索框输入
@@ -271,7 +273,7 @@ $(function(){
 	
 	function getvenueother(n){
 		var n = n || 1;
-		var ur = urls[n] || '';
+		var ur = usrs[n] || '';
 		var condi = {};
 		//condi.org_id = g.id;
 		var url = Base.serverUrl +ur;

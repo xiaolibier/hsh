@@ -94,7 +94,7 @@ body{position:relative;}
 .up_show_div.active .ups_a{display:inline-block;width:21px;height:12px;background:url('../img/m2_30.png') no-repeat center center;background-size:contain;}
 
 .cgpo_t{position:absolute;color:#ffffff;background-color:#DE422E;right:9%;bottom:22px;padding:5px 15px;border-radius:30px;}
-.m2 .changguan_list{margin:0px 0 35px;}
+.m2 .changguan_list{margin:0px 0 17px;padding-bottom:18px;border-bottom:1px solid #dfdfdf;}
 .m2 .cg_one .cg_img{margin:0 3%;border-radius:12px;}
 .m2 .checkall{text-align:center;height:60px;line-height:60px;color:#ffffff;background-color:#b71900;font-size:18px;}
 .m2 .checkall i{margin-right:5%;vertical-align:middle;display:inline-block;width:33px;height:33px;background:url('../img/m2_4.png') no-repeat center center;background-size:contain;}
