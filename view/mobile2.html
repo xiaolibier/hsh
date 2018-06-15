@@ -52,12 +52,32 @@
 	</div>
 	<!--  -->
 	<div class="m6_head m6_head4">
-		<span class="title1">场馆全景</span>
+		<span class="title1">场馆视频</span>
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
 			<div class="cg_img cg_img4" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<span class="cgpo_t">场馆视频</span>
+		</div>
+	</div>
+	<!--  -->
+	<div class="m6_head m6_head5">
+		<span class="title1">场馆全景</span>
+	</div>
+	<div class="changguan_list">
+		<div class="cg_one">
+			<div class="cg_img cg_img5" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">场馆全景</span>
+		</div>
+	</div>
+	<!--  -->
+	<div class="m6_head m6_head6">
+		<span class="title1">场馆动态</span>
+	</div>
+	<div class="changguan_list">
+		<div class="cg_one">
+			<div class="cg_img cg_img6" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<span class="cgpo_t">场馆动态</span>
 		</div>
 	</div>
 	<!--  -->
@@ -83,7 +103,7 @@ $(function(){
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
-	var urls = ['','photo/','interview/','video/','pano/'];
+	var urls = ['','photo/','interview/','guide/','video/','pano/','article_detail/'];
 	
 /* **************************************** lodding ******************************************** */	
 	
@@ -100,10 +120,12 @@ $(function(){
 	//加载页面
 	function loadPage(){
 		getvenue();//获取场馆信息
-		getvenueother(1);//获取场馆照片
-		getvenueother(2);//获取访谈列表
-		getvenueother(3);//获取讲解风采
-		getvenueother(4);//获取全景展示
+		getvenueother(1);//
+		getvenueother(2);//
+		getvenueother(3);//
+		getvenueother(4);//
+		getvenueother(5);//
+		getvenueother(6);//
 	}
 	
 	//展开场馆介绍

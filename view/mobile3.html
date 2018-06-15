@@ -50,8 +50,9 @@ $(function(){
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
-	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆全景','场馆动态','相关机构'];
-	var usrs = ['','photo/','interview/','video/','pano/','article/','association/'];
+	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆视频','场馆全景','场馆动态','场馆动态列表','相关机构'];
+	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/'];
+
 	
 /* **************************************** lodding ******************************************** */	
 	
@@ -72,10 +73,9 @@ $(function(){
 
 	//加载页面
 	function loadPage(){
-		getvenueother(g.p);//获取列表 1场馆照片、2专家访谈、3讲解风采、4场馆全景
+		getvenueother(g.p);//
 		$('#p_name').html(g.p_name[g.p]);//填充标题
 	}
-	//获取列表 1场馆照片、2专家访谈、3讲解风采、4场馆全景
 	
 	//搜索框输入
 	$('#ser_input').keyup(function(){
@@ -118,17 +118,22 @@ $(function(){
 							var name = d.name || '';
 							var desc = d.desc || '';
 							var image_url2 = org.image_url || '../public/img/no.jpg';//全景预览图片
+<<<<<<< HEAD
 							if(n == 1){image_url = image_max_url;video_url = image_max_url;}//第一个是场馆图片
 							if(n == 2){video_url = image_url;}//第二个是访谈图片
+=======
+							if(n == 1){image_url = image_min_url;video_url = image_max_url;}//第一个是场馆图片
+							if(n == 2){video_url = image_url;}//第二个是访谈视频
+>>>>>>> 65222a60d643ac7f17e2a193a9e3fcab2b14b061
 							//if(n == 3){}//第三个是点击跳转讲解视频
-							if(n == 4){
+							if(n == 5){
 								video_url = pano_url;
 								if(video_url != '' && video_url.indexOf('http:') <= -1){video_url = 'http://'+video_url;}
 								//image_url = image_url2;
-							}//第四个是点击跳转全景
+							}//点击跳转全景
 							
-							if(n == 5){//第5个是动态	
-								html+='<div class="cg_one"><a href="detail.html?id='+id+'">'
+							if(n == 6){//动态	
+								html+='<div class="cg_one"><a href="detail.html?id='+id+'&p='+g.p+'">'
 									+'<div class="cg_text" style="text-align:left;padding:0 3%;color:#283B42;font-size:24px;">'+name+'</div>'
 									+'<div class="cg_img" style="color:#9B9B9B;height:44px;overflow:hidden;font-size:16px;margin:10px 3%;" >'+desc+'</div>'
 								+'</a></div>';
