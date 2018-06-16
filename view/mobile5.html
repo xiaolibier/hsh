@@ -49,7 +49,7 @@
 $(function(){
 	var g = {};
 	g.login_token = Utils.offLineStore.get("token",false) || "";
-	//g.id = Utils.getQueryString("id") || "";
+	g.p = Utils.getQueryString("p") || "";
 	g.httpTip = new Utils.httpTip({});
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
@@ -199,7 +199,7 @@ $(function(){
 					var count = data.count || 0;
 					if(count > 0){
 						Utils.offLineStore.set("cityaid",aid,false);//存储当前城市
-						location.href="mobile6.html?id="+aid;
+						location.href="mobile6.html?id="+aid+'&p='+g.p;
 						
 					}else{
 						Utils.alert('该城市下暂无场馆！');
