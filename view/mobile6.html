@@ -42,6 +42,7 @@
 $(function(){
 	var g = {};
 	g.login_token = Utils.offLineStore.get("token",false) || "";
+	g.p = Utils.getQueryString("p") || "";
 	g.id = Utils.getQueryString("id") || "";
 	if(g.id == ''){g.id = Utils.offLineStore.get("cityaid",false);}
 	g.httpTip = new Utils.httpTip({});
@@ -55,7 +56,8 @@ $(function(){
 	loadPage();
 	//返回按钮
 	$('#backgo').on('click',function(){
-		location.href="./mobile5.html";
+		if(g.p == 'index'){location.href="./index.html";}
+		else{location.href="./mobile5.html";}
 	});
 	
 	
