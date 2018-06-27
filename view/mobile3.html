@@ -123,7 +123,9 @@ $(function(){
 							//if(n == 3){}//第三个是点击跳转讲解视频
 							if(n == 5){
 								video_url = pano_url;
-								if(video_url != '' && video_url.indexOf('http:') <= -1){video_url = 'http://'+video_url;}
+								if(video_url != '' && video_url.indexOf('https:') <= -1){
+								video_url = 'http://'+video_url;
+								}
 								//image_url = image_url2;
 							}//点击跳转全景
 							
