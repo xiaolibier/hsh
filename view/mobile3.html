@@ -89,6 +89,7 @@ $(function(){
 		var ser = ser || '';
 		var condi = {};
 		if(g.id != 'index')condi.org_id = g.id;
+		condi.page_size = g.showPages;
 		condi.search = ser;
 		var url = Base.serverUrl + usrs[n];
 		//g.httpTip.show();
@@ -141,6 +142,7 @@ $(function(){
 								+'</a></div>';
 							}
 						}
+						if(data.length >= g.showPages)html+='<div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div>';
 						$('#vue_list').html(html);
 					}	
 				}	
@@ -158,6 +160,13 @@ $(function(){
 			}
 		});
 	}
+	
+	//点击加载更多
+	$('#vue_list').on('click','.showm_a',function(){
+		g.showPages+=10;
+		getvenueother(g.p);
+	});
+	
 	//点击打开
 	window.openurl = function(url){
 		var url = url || '';
