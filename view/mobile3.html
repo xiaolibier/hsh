@@ -119,8 +119,12 @@ $(function(){
 							var name = d.name || '';
 							var desc = d.desc || '';
 							var image_url2 = org.image_url || '../public/img/no.jpg';//全景预览图片
-							if(n == 1){image_url = image_min_url;video_url = image_max_url;}//第一个是场馆图片
-							if(n == 2){video_url = image_url;}//第二个是访谈视频
+							if(n == 1){
+							image_url = image_min_url;
+							video_url = image_max_url;}//第一个是场馆图片
+							if(n == 2){
+							//video_url = image_url;
+							}//第二个是访谈视频
 							//if(n == 3){}//第三个是点击跳转讲解视频
 							if(n == 5){
 								video_url = pano_url;
