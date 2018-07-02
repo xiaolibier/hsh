@@ -123,10 +123,10 @@ background:url('../img/m2_3.png') no-repeat 98% center;background-size:auto 22%;
 .index .for_ul{overflow:hidden;margin:20px auto 40px;}
 .index .for_ul li{float:left;display:inline-block;width:25%;text-align:center;}
 .index .for_ul li .aimg{display:inline-block;width:60%;min-width:60px;height:80px;}
-.index .for_ul li .aimg.aimg1{background:url('../img/id_img1.png') no-repeat center center;background-size:contain;}
-.index .for_ul li .aimg.aimg2{background:url('../img/id_img2.png') no-repeat center center;background-size:contain;}
-.index .for_ul li .aimg.aimg3{background:url('../img/id_img3.png') no-repeat center center;background-size:contain;}
-.index .for_ul li .aimg.aimg4{background:url('../img/id_img4.png') no-repeat center center;background-size:contain;}
+.index .for_ul li .aimg.aimg1{background:url('http://p61rqs6a4.bkt.clouddn.com/id_img1.png') no-repeat center center;background-size:contain;}
+.index .for_ul li .aimg.aimg2{background:url('http://p61rqs6a4.bkt.clouddn.com/id_img2.png') no-repeat center center;background-size:contain;}
+.index .for_ul li .aimg.aimg3{background:url('http://p61rqs6a4.bkt.clouddn.com/id_img3.png') no-repeat center center;background-size:contain;}
+.index .for_ul li .aimg.aimg4{background:url('http://p61rqs6a4.bkt.clouddn.com/id_img4.png') no-repeat center center;background-size:contain;}
 .index .intr_div{margin-bottom:20px;}
 .index .intr_over{white-space:nowrap;height:232px;overflow:hidden;overflow-x:auto;}
 .index .intr_t{color:#283B42;font-size:23px;padding-left:3%;position:relative;}
