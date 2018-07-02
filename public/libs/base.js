@@ -20,7 +20,9 @@
 	var phoneNumber = "";
 
 	//请求服务地址
-	var serverUrl = "http://www.mijson.com/proxy/api/";//
+
+	var serverUrl = "http://www.mijson.com/api/";//
+	//var serverUrl = "http://localhost/api/";//
 
 	
 	
