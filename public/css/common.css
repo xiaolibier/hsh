@@ -43,7 +43,7 @@ body{position:relative;}
 /* mobile6 */
 .m6{}
 .m6 .m6_head{padding:30px 0 30px 5%;position:relative;}
-.m6 .m6_head .title1{color:#000000;font-size:25px;}
+.m6 .m6_head .title1{color:#D0021B;font-size:25px;}
 .m6 .m6_head .title2{color:#4A4A4A;padding-left:10px;font-size:13px;}
 .m6 .m6_head .bacc{display:inline-block;width:30px;height:20px;position:absolute;right:5%;top:36px;background:url('../img/m6_1.png') no-repeat center center;background-size:contain;}
 .m6 .changguan_list{}
@@ -129,7 +129,7 @@ background:url('../img/m2_3.png') no-repeat 98% center;background-size:auto 22%;
 .index .for_ul li .aimg.aimg4{background:url('../img/id_img4.png') no-repeat center center;background-size:contain;}
 .index .intr_div{margin-bottom:20px;}
 .index .intr_over{white-space:nowrap;height:232px;overflow:hidden;overflow-x:auto;}
-.index .intr_t{color:#283B42;font-size:23px;padding-left:3%;position:relative;}
+.index .intr_t{color:#D0021B;font-size:23px;padding-left:3%;position:relative;}
 .index .intr_t .inmore{color:#4A4A4A;font-size:20px;position:absolute;right:3%;top:2px;}
 .index .intr_ul{height:210px;margin:20px auto 20px;padding:0 1.5%;}
 .index .intr_ul li{float:left;height:210px;display:inline-block;width:35%;max-width:130px;margin:0 1.5%;}
