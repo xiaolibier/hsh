@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../public/css/common.css" />
+	<title>红色汇</title>
+</head>
+<body class="commonBody m6 m3">
+<div class="m6_head">
+		<span id="p_name" class="title1"></span>
+	</div>
+	<div id="vue_list" class="changguan_list">
+		<!-- <div class="cg_one">
+			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+		</div>
+		<div class="cg_one">
+			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+		</div> -->
+		<!-- <div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div> -->
+	</div>
+	
+	
+	<script type="text/javascript" src="../public/libs/jquery.min.js"></script>
+	<script type="text/javascript" src="../public/laydate/laydate.js"></script>
+	<script type="text/javascript" src="../public/libs/json.js"></script>
+	<script type="text/javascript" src="../public/libs/base.js"></script>
+	<script type="text/javascript" src="../public/libs/layer.js"></script>
+	<script type="text/javascript" src="../public/libs/utils.js"></script>
+	<script type="text/javascript" src="../public/js/common2.js"></script>
+	
+</body>
+
+<script>
+$(function(){
+	var org_id='';
+	var series_tag='';
+	org_id= Utils.getQueryString("org_id") || "";//场馆id
+	loadPage();
+
+	
+/* **************************************** lodding ******************************************** */	
+	
+	
+
+	
+	
+/* **************************************** setTing ******************************************** */	
+
+	//加载页面
+	function loadPage(){
+		getVideo();		
+	}
+	
+
+	
+	function getVideo(){		
+		var url = Base.serverUrl + "video/?page_size=1000&org_id="+org_id;//视频
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			async: false,
+			context:this,
+			success: function(data){
+				if(data){
+					var count = data.count || 0;
+					if(count > 0){
+						var data = data.results || [];
+						var html = '';
+						var series_tag_temp='';
+						var org_temp='';
+						if(data.length==1){
+							var d = data[0] || '';
+							var url= d.video_url || '';
+							window.open(url);
+						}else{
+						for(var i=0,len=data.length;i<len;i++){
+							var d = data[i] || '';
+							var id = d.id || '';
+							var image_url = d.image_url || '../public/img/no.jpg';
+							var image_min_url = d.image_min_url || '../public/img/no.jpg';
+							var image_max_url = d.image_max_url || '../public/img/no.jpg';
+							var video_url = d.video_url || '';
+							var pano_url = d.pano_url || '';
+							var org = d.org || '';
+							var name = d.name || '';
+							var desc = d.desc || '';
+							var series_tag = d.series_tag ||'';//系列的名称
+							var image_url2 = org.image_url || '../public/img/no.jpg';//全景预览图片
+							if(series_tag!=''){
+								$('#p_name').html(series_tag);//填充标题
+							}else{
+							  $('#p_name').html(name);//填充标题
+							}
+							{//3讲解视频
+								//do nothing
+								html+='<div class="cg_one"><a href="'+video_url+'">'
+									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+									+'<div class="cg_text">'+name+'</div>'
+								+'</a></div>';								
+							}							
+						}
+						$('#vue_list').html(html);
+					 }
+					}	
+				}	
+				else{
+					var msg = data.message || "获取失败";
+					//Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
+	
+	
+	//点击打开
+	window.openurl = function(url){
+		var url = url || '';
+		window.open(url);
+	}
+/* **************************************** 获取所有 ******************************************** */	
+	
+
+});
+
+</script>
+</html>

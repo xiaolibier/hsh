@@ -151,8 +151,9 @@ $(function(){
 									//数据重复情况下不添加
 								}else{
 								var temp_name='';
-								if(series_tag=='')temp_name=series_tag;
+								if(series_tag=='')temp_name=name;
 								else temp_name=series_tag;
+								video_url="视频播放.html?org_id="+org+"&series_tag="+temp_name;
 								html+='<div class="cg_one"><a href="'+video_url+'">'
 									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
 									+'<div class="cg_text">'+temp_name+'</div>'
@@ -209,6 +210,8 @@ $(function(){
 		var url = url || '';
 		window.open(url);
 	}
+/* **************************************** 获取所有 ******************************************** */	
+	
 
 });
 
