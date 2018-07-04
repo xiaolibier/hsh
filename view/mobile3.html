@@ -51,7 +51,7 @@ $(function(){
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
 	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆视频','场馆全景','场馆动态','场馆动态列表','相关机构'];
-	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/'];
+	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/','person/'];
 
 	
 /* **************************************** lodding ******************************************** */	
@@ -178,6 +178,14 @@ $(function(){
 									+'<div class="cg_text" style="text-align:left;padding:0 3%;color:#283B42;font-size:24px;">'+name+'</div>'
 									+'<div class="cg_img" style="color:#9B9B9B;height:44px;overflow:hidden;font-size:16px;margin:10px 3%;" >'+desc+'</div>'
 								+'</a></div>';
+							}
+							if(n==9){//越拍越红
+							video_url="越拍越红.html?person_id="+id;
+							html+='<div class="cg_one"><a href="'+video_url+'">'
+									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+									+'<div class="cg_text">'+name+'</div>'
+								+'</a><h4 class="m2j_t"><i></i>'+desc+'</h4>'
+								+'</div>';
 							}
 						}
 						if(data.length >= g.showPages)html+='<div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div>';

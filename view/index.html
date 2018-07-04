@@ -93,7 +93,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img cg_img1" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img9" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">越拍越红</span>
 		</div>
 	</div>
@@ -121,7 +121,7 @@ $(function(){
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
 	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆视频','场馆全景','场馆动态','场馆动态列表','相关机构'];
-	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/'];
+	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/','person/'];
 
 	
 	//加载banner图
@@ -141,10 +141,11 @@ $(function(){
 	function loadPage(){
 		getVenues();//获取场馆列表
 		getHotVenue();//获取热门场馆列表
-		getvenueother(1);//摄影
+		//getvenueother(1);//摄影
 		getvenueother(2);//访谈
 		getvenueother(7);//动态
 		getvenueother(8);//机构
+		getvenueother(9);//越拍越红
 	}
 
 	//搜索框输入
@@ -269,14 +270,15 @@ $(function(){
 	//获取场馆其他部分列表
 	
 	
-	//获取列表 1场馆照片、2专家访谈、3讲解风采、4场馆全景
+	//获取列表 1场馆照片、2专家访谈、3讲解风采、4场馆全景、9越拍越红
 	
 	function getvenueother(n){
 		var n = n || 1;
-		var ur = usrs[n] || '';
+		var ur = usrs[n] || '';		
 		var condi = {};
 		//condi.org_id = g.id;
 		var url = Base.serverUrl +ur;
+		console.log("url"+n+" :="+url);
 		//g.httpTip.show();
 		$.ajax({
 			url:url,
