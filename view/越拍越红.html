@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
+	<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="format-detection" content="telephone=no"/>
+	<link rel="stylesheet" href="../public/css/common.css" />
+	<title>红色汇</title>
+</head>
+<body class="commonBody m6 m2">
+	<div class="m2_head" id="person_bg" style="background:url('http://p61rqs6a4.bkt.clouddn.com/no.jpg') no-repeat center center;background-size:cover;">
+		<span id="person_name" class="title1"></span>
+	</div>
+	<div class="m2_jie">
+		<h4 class="m2j_t"><i></i>专栏介绍</h4>
+		<p id="desc" class="m2j_text">
+		</p>
+		<div class="up_show_div"><a class="ups_a"></a></div>
+	</div>
+	<!--  -->
+	<div class="m6_head m6_head1">
+		<span class="title1">精彩照片</span>
+	</div>
+		<div id="vue_list" class="changguan_list">
+		<!-- <div class="cg_one">
+			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+		</div>
+		<div class="cg_one">
+			<div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+		</div> -->
+		<!-- <div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div> -->
+	</div>
+	
+	
+	<script type="text/javascript" src="../public/libs/jquery.min.js"></script>
+	<script type="text/javascript" src="../public/laydate/laydate.js"></script>
+	<script type="text/javascript" src="../public/libs/json.js"></script>
+	<script type="text/javascript" src="../public/libs/base.js"></script>
+	<script type="text/javascript" src="../public/libs/layer.js"></script>
+	<script type="text/javascript" src="../public/libs/utils.js"></script>
+	<script type="text/javascript" src="../public/js/common2.js"></script>
+	
+</body>
+
+<script>
+$(function(){
+	var g={};
+	g.id = Utils.getQueryString("person_id") || "";
+	g.httpTip = new Utils.httpTip({});
+	g.totalPage = 1;//存总页数
+	g.nowPage = 0;//存当前页 0 是第一页
+	g.showPages = 10;//每页显示多少行
+	var urls = ['','photo/','interview/','guide/','video/','pano/','article_detail/','association/','person/'];
+	
+/* **************************************** lodding ******************************************** */	
+	
+	
+	loadPage();
+	
+	
+	
+/* **************************************** setTing ******************************************** */	
+
+	//加载页面
+	function loadPage(){
+	getPerson();
+	getvenueother();//
+	}
+	
+	//展开场馆介绍
+	$('.up_show_div').on('click',function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+			$('#desc').removeClass('down');
+		}else{
+			$(this).addClass('active');
+			$('#desc').addClass('down');
+		}	
+	});
+	
+	//获取场馆其他部分列表
+	
+	
+	//获取列表照片	
+	function getvenueother(){
+		var condi = {};
+		//condi.org_id = g.id;
+		var url = Base.serverUrl +"photo/";
+		//g.httpTip.show();
+		condi.page_size = g.showPages;
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			context:this,
+			async: false,
+			success: function(data){
+				if(data){
+					var count = data.count || 0;
+					if(count > 0){
+						var data = data.results || [];
+						var html = '';
+						var img = 'http://p61rqs6a4.bkt.clouddn.com/no.jpg';
+						for(var i=0,len=data.length;i<len;i++){
+							var d = data[i] || '';
+							var id = d.id || '';
+							var image_url = d.image_url || '../public/img/no.jpg';
+							var image_min_url = d.image_min_url || '../public/img/no.jpg';
+							var image_max_url = d.image_max_url || '../public/img/no.jpg';
+							var pano_url = d.pano_url || '';
+							var org = d.org || '';
+							var name = d.name || '';
+							var desc = d.desc || '';
+							var series_tag = d.series_tag ||'';//系列的名称
+							html+='<div class="cg_one"><a href="'+image_max_url+'">'
+									+'<div class="cg_img" style="background:url('+image_min_url+') no-repeat center center;background-size:cover;"></div>'
+									+'<div class="cg_text">'+name+'</div>'
+								+'</a></div>';
+						}
+						if(data.length >= g.showPages)html+='<div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div>';
+						$('#vue_list').html(html);
+					}else{
+						$('.m6_head'+n).hide();
+						$('.cg_img'+n).parents('.changguan_list').hide();
+					}		
+				}	
+				else{
+					var msg = data.message || "获取失败";
+					//Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
+	//获取人物信息
+	function getPerson(){
+		var id = g.id || '';
+		if(id == ''){Utils.alert('id不能为空！');return false;}
+		var condi = {};
+		condi.id = id;
+		var url = Base.serverUrl + "person/";
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			context:this,
+			async: false,
+			success: function(data){
+				if(data){
+				console.log("data="+JSON.stringify(data));
+					var d = data.results[0] || {};
+					var id = d.id || '';
+					var name = d.name || '';
+					var desc = d.desc || '';
+					var image_url = d.image_url	|| 'http://p61rqs6a4.bkt.clouddn.com/m2_1.png';					
+					$('#person_bg').css({'background':'url('+image_url+') no-repeat center center','background-size':'cover'});
+					$('#person_name').html(name);
+					$('#desc').html('<div class="hei">'+desc+'</div>');
+					if($('#desc').find('.hei').height() > 131){$('.up_show_div').fadeIn();}
+					
+				}
+				else{
+					var msg = data.message || "获取失败";
+					Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
+		//点击加载更多
+	$('#vue_list').on('click','.showm_a',function(){
+		g.showPages+=10;
+		getvenueother(g.p);
+	});
+		//点击打开
+	window.openurl = function(url){
+		var url = url || '';
+		window.open(url);
+	}
+	
+
+});
+
+</script>
+</html>
