@@ -121,12 +121,13 @@ background:url('../img/m2_3.png') no-repeat 98% center;background-size:auto 22%;
 .index .header .sle_input{width:60%;margin-left:2%;font-size:18px;text-align:center;height:32px;line-height:32px;border-radius:32px;border:1px solid #E7E7E7;background:url('../img/index_img1.png') no-repeat 17% center;background-size:auto 70%;background-color:#f6f5f4;}
 .index .banner_div{}
 .index .for_ul{overflow:hidden;margin:20px auto 40px;}
-.index .for_ul li{float:left;display:inline-block;width:25%;text-align:center;}
+.index .for_ul li{float:left;display:inline-block;width:20%;text-align:center;}
 .index .for_ul li .aimg{display:inline-block;width:60%;min-width:60px;height:80px;}
 .index .for_ul li .aimg.aimg1{background:url('../img/id_img1.png') no-repeat center center;background-size:contain;}
 .index .for_ul li .aimg.aimg2{background:url('../img/id_img2.png') no-repeat center center;background-size:contain;}
 .index .for_ul li .aimg.aimg3{background:url('../img/id_img3.png') no-repeat center center;background-size:contain;}
 .index .for_ul li .aimg.aimg4{background:url('../img/id_img4.png') no-repeat center center;background-size:contain;}
+.index .for_ul li .aimg.aimg5{background:url('../img/id_img5.png') no-repeat center center;background-size:contain;}
 .index .intr_div{margin-bottom:20px;}
 .index .intr_over{white-space:nowrap;height:232px;overflow:hidden;overflow-x:auto;}
 .index .intr_t{color:#D0021B;font-size:23px;padding-left:3%;position:relative;}

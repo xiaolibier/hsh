@@ -52,7 +52,7 @@ $(function(){
 	g.showPages = 10;//每页显示多少行
 	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆视频','场馆全景','场馆动态','场馆动态列表','相关机构'];
 	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/','person/'];
-
+	var venues={};
 	
 /* **************************************** lodding ******************************************** */	
 	
@@ -73,19 +73,28 @@ $(function(){
 
 	//加载页面
 	function loadPage(){
+		getAllVenues();
 		getvenueother(g.p);//
 		$('#p_name').html(g.p_name[g.p]);//填充标题
 	}
 	
 	//搜索框输入
-	$('#ser_input').keyup(function(){
-		var _val = $(this).val() || '';
-		getvenueother(g.p,_val);
+	var timeoutId = 0;
+	//$('#ser_input').keyup(function(){
+	//	var _val = $(this).val() || '';
+	//	console.log("ser_input="+_val);
+	//	getvenueother(g.p,_val);
 	
-	});
+	//});
+	  $('#ser_input').off('keyup').on('keyup', function (event) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function () {    
+				var _val = $('#ser_input').val() || '';			
+                 getvenueother(g.p,_val);
+            }, 1000);
+        });
 	
-	function getvenueother(n,ser){
-		
+	function getvenueother(n,ser){		
 		var n = n || 1;
 		var ser = ser || '';
 		var condi = {};
@@ -103,13 +112,13 @@ $(function(){
 			async: false,
 			context:this,
 			success: function(data){
-				if(data){
-					var count = data.count || 0;
-					if(count > 0){
+				//console.log("data="+JSON.stringify(data));
+				var count = data.count || 0;
+				if(data&&((count > 0))){
 						var data = data.results || [];
 						var html = '';
 						var series_tag_temp='';
-						var org_temp='';
+						var org_temp='';						
 						for(var i=0,len=data.length;i<len;i++){
 							var d = data[i] || '';
 							var id = d.id || '';
@@ -126,23 +135,30 @@ $(function(){
 							if(n == 1){//1 场馆图片
 							image_url = image_min_url;
 							video_url = image_max_url;
+							var temp_name=venues[org];
 							html+='<div class="cg_one"><a href="'+video_url+'">'
 									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
-									+'<div class="cg_text">'+name+'</div>'
+									+'<div class="cg_text">'+temp_name+'</div>'
 								+'</a></div>';
 							}//第一个是场馆图片
 							if(n == 2){//2 访谈视频
 							//video_url = image_url;
+							var temp_name='';
+								if(series_tag=='')temp_name=name;
+								else temp_name=series_tag;
 							html+='<div class="cg_one"><a href="'+video_url+'">'
 									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
-									+'<div class="cg_text">'+name+'</div>'
+									+'<div class="cg_text">'+temp_name+'</div>'
 								+'</a></div>';
 							}//第二个是访谈视频
 							if(n == 3){//3讲解视频
+								var temp_name='';
+								if(series_tag=='')temp_name=name;
+								else temp_name=series_tag;
 								//do nothing
 								html+='<div class="cg_one"><a href="'+video_url+'">'
 									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
-									+'<div class="cg_text">'+name+'</div>'
+									+'<div class="cg_text">'+temp_name+'</div>'
 								+'</a></div>';								
 							}
 							if(n==4){//4表示场馆视频
@@ -191,10 +207,10 @@ $(function(){
 						if(data.length >= g.showPages)html+='<div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div>';
 						$('#vue_list').html(html);
 					}	
-				}	
-				else{
-					var msg = data.message || "获取失败";
-					//Utils.alert(msg);
+					else{
+						var msg = data.message || "获取失败,请更换搜索关键字";
+						Utils.alert(msg);
+						console.log("data msg="+msg);
 				}
 				//g.httpTip.hide();
 			},
@@ -218,8 +234,39 @@ $(function(){
 		var url = url || '';
 		window.open(url);
 	}
-/* **************************************** 获取所有 ******************************************** */	
+/* **************************************** 获取所有 场馆信息 ******************************************** */	
+	function getAllVenues(){
+		var url = Base.serverUrl +"venue/"
+		var condi = {};
+		condi.page_size = 10000;
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			async: false,
+			context:this,
+			success: function(data){
+			var count = data.count || 0;
+				if(data&&((count > 0))){
+				var data = data.results || [];
+				console.log("data="+JSON.stringify(data));
+				for(var i=0,len=data.length;i<len;i++){
+					var d = data[i] || '';
+					venues[d.id]=d.name;				
+				}			
+			}			
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
 	
+	}
 
 });
 
