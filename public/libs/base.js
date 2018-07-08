@@ -18,9 +18,7 @@
 	var userName = "";
 	//用户手机号
 	var phoneNumber = "";
-
 	//请求服务地址
-
 	//var serverUrl = "http://www.mijson.com/api/";//
 	var serverUrl = "http://localhost/api/";//
 
