@@ -51,8 +51,8 @@ $(function(){
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
 	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆视频','场馆全景','场馆动态','场馆动态列表','相关机构'];
-	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/'];
-
+	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/','person/'];
+	var venues={};
 	
 /* **************************************** lodding ******************************************** */	
 	
@@ -73,22 +73,33 @@ $(function(){
 
 	//加载页面
 	function loadPage(){
+		getAllVenues();
 		getvenueother(g.p);//
 		$('#p_name').html(g.p_name[g.p]);//填充标题
 	}
 	
 	//搜索框输入
-	$('#ser_input').keyup(function(){
-		var _val = $(this).val() || '';
-		getvenueother(g.p,_val);
+	var timeoutId = 0;
+	//$('#ser_input').keyup(function(){
+	//	var _val = $(this).val() || '';
+	//	console.log("ser_input="+_val);
+	//	getvenueother(g.p,_val);
 	
-	});
+	//});
+	  $('#ser_input').off('keyup').on('keyup', function (event) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function () {    
+				var _val = $('#ser_input').val() || '';			
+                 getvenueother(g.p,_val);
+            }, 1000);
+        });
 	
-	function getvenueother(n,ser){
+	function getvenueother(n,ser){		
 		var n = n || 1;
 		var ser = ser || '';
 		var condi = {};
 		if(g.id != 'index')condi.org_id = g.id;
+		condi.page_size = g.showPages;
 		condi.search = ser;
 		var url = Base.serverUrl + usrs[n];
 		//g.httpTip.show();
@@ -101,11 +112,13 @@ $(function(){
 			async: false,
 			context:this,
 			success: function(data){
-				if(data){
-					var count = data.count || 0;
-					if(count > 0){
+				//console.log("data="+JSON.stringify(data));
+				var count = data.count || 0;
+				if(data&&((count > 0))){
 						var data = data.results || [];
 						var html = '';
+						var series_tag_temp='';
+						var org_temp='';						
 						for(var i=0,len=data.length;i<len;i++){
 							var d = data[i] || '';
 							var id = d.id || '';
@@ -117,7 +130,9 @@ $(function(){
 							var org = d.org || '';
 							var name = d.name || '';
 							var desc = d.desc || '';
+							var series_tag = d.series_tag ||'';//系列的名称
 							var image_url2 = org.image_url || '../public/img/no.jpg';//全景预览图片
+<<<<<<< HEAD
 <<<<<<< HEAD
 							if(n == 1){image_url = image_max_url;video_url = image_max_url;}//第一个是场馆图片
 							if(n == 2){video_url = image_url;}//第二个是访谈图片
@@ -127,9 +142,63 @@ $(function(){
 >>>>>>> 65222a60d643ac7f17e2a193a9e3fcab2b14b061
 							//if(n == 3){}//第三个是点击跳转讲解视频
 							if(n == 5){
+=======
+							if(n == 1){//1 场馆图片
+							image_url = image_min_url;
+							video_url = image_max_url;
+							var temp_name=venues[org];
+							html+='<div class="cg_one"><a href="'+video_url+'">'
+									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+									+'<div class="cg_text">'+temp_name+'</div>'
+								+'</a></div>';
+							}//第一个是场馆图片
+							if(n == 2){//2 访谈视频
+							//video_url = image_url;
+							var temp_name='';
+								if(series_tag=='')temp_name=name;
+								else temp_name=series_tag;
+							html+='<div class="cg_one"><a href="'+video_url+'">'
+									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+									+'<div class="cg_text">'+temp_name+'</div>'
+								+'</a></div>';
+							}//第二个是访谈视频
+							if(n == 3){//3讲解视频
+								var temp_name='';
+								if(series_tag=='')temp_name=name;
+								else temp_name=series_tag;
+								//do nothing
+								html+='<div class="cg_one"><a href="'+video_url+'">'
+									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+									+'<div class="cg_text">'+temp_name+'</div>'
+								+'</a></div>';								
+							}
+							if(n==4){//4表示场馆视频
+								//do nothing
+								if((org==org_temp)&&(series_tag_temp==series_tag)&&(org!='')){
+									//数据重复情况下不添加
+								}else{
+								var temp_name='';
+								if(series_tag=='')temp_name=name;
+								else temp_name=series_tag;
+								video_url="视频播放.html?org_id="+org+"&series_tag="+temp_name;
+								html+='<div class="cg_one"><a href="'+video_url+'">'
+									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+									+'<div class="cg_text">'+temp_name+'</div>'
+								+'</a></div>';								
+								}
+								org_temp=org;
+								series_tag_temp=series_tag;		
+							}
+							if(n == 5){//5是全景图
+>>>>>>> 6b3fe00566adee9448c20cf17a1a12b71d712c2d
 								video_url = pano_url;
-								if(video_url != '' && video_url.indexOf('http:') <= -1){video_url = 'http://'+video_url;}
-								//image_url = image_url2;
+								if(video_url != '' && video_url.indexOf('https:') <= -1){
+								video_url = 'http://'+video_url;
+								}
+								html+='<div class="cg_one"><a href="'+video_url+'">'
+									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+									+'<div class="cg_text">'+name+'</div>'
+								+'</a></div>';
 							}//点击跳转全景
 							
 							if(n == 7 || n == 6){//动态	
@@ -137,19 +206,23 @@ $(function(){
 									+'<div class="cg_text" style="text-align:left;padding:0 3%;color:#283B42;font-size:24px;">'+name+'</div>'
 									+'<div class="cg_img" style="color:#9B9B9B;height:44px;overflow:hidden;font-size:16px;margin:10px 3%;" >'+desc+'</div>'
 								+'</a></div>';
-							}else{
-								html+='<div class="cg_one"><a href="'+video_url+'">'
+							}
+							if(n==9){//越拍越红
+							video_url="越拍越红.html?person_id="+id;
+							html+='<div class="cg_one"><a href="'+video_url+'">'
 									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
 									+'<div class="cg_text">'+name+'</div>'
-								+'</a></div>';
+								+'</a><h4 class="m2j_t"><i></i>'+desc+'</h4>'
+								+'</div>';
 							}
 						}
+						if(data.length >= g.showPages)html+='<div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div>';
 						$('#vue_list').html(html);
 					}	
-				}	
-				else{
-					var msg = data.message || "获取失败";
-					//Utils.alert(msg);
+					else{
+						var msg = data.message || "获取失败,请更换搜索关键字";
+						Utils.alert(msg);
+						console.log("data msg="+msg);
 				}
 				//g.httpTip.hide();
 			},
@@ -161,10 +234,50 @@ $(function(){
 			}
 		});
 	}
+	
+	//点击加载更多
+	$('#vue_list').on('click','.showm_a',function(){
+		g.showPages+=10;
+		getvenueother(g.p);
+	});
+	
 	//点击打开
 	window.openurl = function(url){
 		var url = url || '';
 		window.open(url);
+	}
+/* **************************************** 获取所有 场馆信息 ******************************************** */	
+	function getAllVenues(){
+		var url = Base.serverUrl +"venue/"
+		var condi = {};
+		condi.page_size = 10000;
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			async: false,
+			context:this,
+			success: function(data){
+			var count = data.count || 0;
+				if(data&&((count > 0))){
+				var data = data.results || [];
+				console.log("data="+JSON.stringify(data));
+				for(var i=0,len=data.length;i<len;i++){
+					var d = data[i] || '';
+					venues[d.id]=d.name;				
+				}			
+			}			
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	
 	}
 
 });

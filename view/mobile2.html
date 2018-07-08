@@ -11,7 +11,7 @@
 	<title>红色汇</title>
 </head>
 <body class="commonBody m6 m2">
-	<div class="m2_head" id="venue_bg" style="background:url('../public/img/no.jpg') no-repeat center center;background-size:cover;">
+	<div class="m2_head" id="venue_bg" style="background:url('http://p61rqs6a4.bkt.clouddn.com/no.jpg') no-repeat center center;background-size:cover;">
 		<span id="venue_name" class="title1"></span>
 	</div>
 	<div class="m2_jie">
@@ -26,7 +26,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img cg_img1" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img1" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">场馆照片</span>
 		</div>
 	</div>
@@ -36,7 +36,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img cg_img2" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img2" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">专家访谈</span>
 		</div>
 	</div>
@@ -46,7 +46,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img cg_img3" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img3" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">讲解风采</span>
 		</div>
 	</div>
@@ -56,7 +56,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img cg_img4" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img4" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">场馆视频</span>
 		</div>
 	</div>
@@ -66,7 +66,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img cg_img5" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img5" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">场馆全景</span>
 		</div>
 	</div>
@@ -76,7 +76,7 @@
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img cg_img6" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<div class="cg_img cg_img6" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
 			<span class="cgpo_t">场馆动态</span>
 		</div>
 	</div>
@@ -103,7 +103,7 @@ $(function(){
 	g.totalPage = 1;//存总页数
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
-	var urls = ['','photo/','interview/','guide/','video/','pano/','article_detail/'];
+	var urls = ['','photo/','interview/','guide/','video/','pano/','article_detail/','association/','person/'];
 	
 /* **************************************** lodding ******************************************** */	
 	
@@ -165,12 +165,12 @@ $(function(){
 					if(count > 0){
 						var data = data.results || [];
 						var html = '';
-						var img = '../public/img/no.jpg';
+						var img = 'http://p61rqs6a4.bkt.clouddn.com/no.jpg';
 						for(var i=0,len=data.length;i<len;i++){
 							var d = data[i] || '';
 							var id = d.id || '';
-							var image_url = d.image_url || '../public/img/no.jpg';
-							var image_min_url = d.image_min_url || '../public/img/no.jpg';
+							var image_url = d.image_url || 'http://p61rqs6a4.bkt.clouddn.com/no.jpg';
+							var image_min_url = d.image_min_url || 'http://p61rqs6a4.bkt.clouddn.com/no.jpg';
 							if(i==0){img = image_url}//获取第一张照片
 							if(n==1 && i==0){img = image_min_url}//获取第一张照片
 						}
@@ -220,7 +220,7 @@ $(function(){
 					var id = d.id || '';
 					var name = d.name || '';
 					var desc = d.desc || '';
-					var image_url = d.image_url	|| '../public/img/m2_1.png';
+					var image_url = d.image_url	|| 'http://p61rqs6a4.bkt.clouddn.com/m2_1.png';
 					
 					$('#venue_bg').css({'background':'url('+image_url+') no-repeat center center','background-size':'cover'});
 					$('#venue_name').html(name);

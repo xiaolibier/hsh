@@ -41,7 +41,6 @@
 	<script type="text/javascript" src="../public/libs/layer.js"></script>
 	<script type="text/javascript" src="../public/libs/utils.js"></script>
 	<script type="text/javascript" src="../public/js/common2.js"></script>
-	<script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
 	
 </body>
 
@@ -67,7 +66,7 @@ $(function(){
 
 	//加载页面
 	function loadPage(){
-		getpoi();//获取当前位置
+		//getpoi();//获取当前位置
 		getadds();//获取地址列表
 	}
 
@@ -77,7 +76,7 @@ $(function(){
 		//if(city == ''){city = '获取位置失败';}
 		//$('#poicity').html(city);
 		 $.ajax({
-			url:'http://api.map.baidu.com/location/ip?ak=5cf32b027c8927baa94c0fc655ab422a&qq-pf-to=pcqq.discussion',
+			url:'http://api.map.baidu.com/location/ip?ak=05cf32b027c8927baa94c0fc655ab422a&qq-pf-to=pcqq.discussion',
 			data:'',
 			timeout: 30000, //超时时间设置，单位毫秒
 			type:"GET",
@@ -128,9 +127,10 @@ $(function(){
 						var d = citys[i] || '';
 						var id = d.id || '';
 						var name = d.name || '';
+					    var code = d.code||'';
 						var childrens = d.sub_cat || [];
 						g.city[id]= d;
-						html+='<li aid="'+id+'" class="m5pli"><a>'+name+'</a></li>';
+						html+='<li aid="'+id+'" class="m5pli" code="'+code+'"><a>'+name+'</a></li>';
 						
 					}
 					$('#citys').html(html);
@@ -154,20 +154,22 @@ $(function(){
 		
 		$(this).addClass('active').siblings('li').removeClass('active');
 		var aid = $(this).attr('aid') || '';
+		var code=$(this).attr('code') || '';
 		if(aid == ''){Utils.alert('城市id为空！');return false;}
 		var data = g.city[aid] || {};
 		var citys = data.sub_cat || [];
 		if(citys.length > 0){$('body,html').animate({scrollTop: 0}, 500);}
 		else{//页面跳转
-			isgovenue(aid);//查询城市下是否存在场馆 存在的跳转
+			isgovenue(aid,code);//查询城市下是否存在场馆 存在的跳转
 		}
 		var html = '';
 		for(var i=0,len=citys.length;i<len;i++){
 			var d = citys[i] || '';
 			var id = d.id || '';
 			var name = d.name || '';
+			var code = d.code||'';
 			var childrens = d.sub_cat || [];
-			html+='<li aid="'+id+'" class="m5pli"><a>'+name+'</a></li>';
+			html+='<li aid="'+id+'" class="m5pli" code="'+code+'"><a>'+name+'</a></li>';
 			
 		}
 		$('#childrens').html(html);
@@ -176,13 +178,15 @@ $(function(){
 	//点击二级城市跳转
 	$('#childrens').on('click','.m5pli',function(){
 		var aid = $(this).attr('aid') || '';
+		var code=$(this).attr('code') || '';
 		if(aid == ''){Utils.alert('城市id为空！');return false;}
-		isgovenue(aid);//查询城市下是否存在场馆 存在的跳转
+		isgovenue(aid,code);//查询城市下是否存在场馆 存在的跳转
 	});
 	
 	//查询城市下是否存在场馆 存在的跳转
-	function isgovenue(aid){
+	function isgovenue(aid,code){
 		var aid = aid || '';
+		var code = code||'';
 		var condi = {};
 		condi.category_id  = aid;
 		var url = Base.serverUrl + "venue/";
@@ -199,7 +203,7 @@ $(function(){
 					var count = data.count || 0;
 					if(count > 0){
 						Utils.offLineStore.set("cityaid",aid,false);//存储当前城市
-						location.href="mobile6.html?id="+aid+'&p='+g.p;
+						location.href="mobile6.html?id="+aid+'&p='+g.p+'&code='+code;
 						
 					}else{
 						Utils.alert('该城市下暂无场馆！');

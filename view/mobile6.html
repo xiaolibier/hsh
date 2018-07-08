@@ -44,6 +44,7 @@ $(function(){
 	g.login_token = Utils.offLineStore.get("token",false) || "";
 	g.p = Utils.getQueryString("p") || "";
 	g.id = Utils.getQueryString("id") || "";
+	g.code = Utils.getQueryString("code") || "";
 	if(g.id == ''){g.id = Utils.offLineStore.get("cityaid",false);}
 	g.httpTip = new Utils.httpTip({});
 	g.totalPage = 1;//存总页数
@@ -66,6 +67,7 @@ $(function(){
 	//加载页面
 	function loadPage(){
 		getvenue();//查询城市下场馆
+		getadds();//城市名称传递的话会有编码问题
 	}
 	
 	//点击场馆跳转
@@ -95,22 +97,21 @@ $(function(){
 					if(count > 0){
 						var venues = data.results || [];
 						var html = '';
-						var cityname = '';
+						//var cityname = '';//
 						for(var i=0,len=venues.length;i<len;i++){
 							var d = venues[i] || '';
 							var id = d.id || '';
 							var name = d.name || '';
 							var image_url = d.image_url || '';
 							var category = d.category || '';
-							cityname = category.name || '../public/img/no.jpg';
+							///cityname = g.firstName || '名称传递失败';
 							html+='<div aid="'+id+'" class="cg_one">'
 								+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
 								+'<div class="cg_text">'+name+'</div>'
 							+'</div>';
 							
 						}
-						$('#venues').html(html);
-						$('#cityname').html(cityname);
+						$('#venues').html(html);						
 						$('#incity').html('已入住'+count+'家场馆');
 						
 					}else{
@@ -120,6 +121,41 @@ $(function(){
 				else{
 					var msg = data.message || "获取失败";
 					//Utils.alert(msg);
+				}
+				//g.httpTip.hide();
+			},
+			error:function(data,status){
+				//g.httpTip.hide();
+				if(status=='timeout'){
+		　　　　　  Utils.alert("超时");
+		　　　　}
+			}
+		});
+	}
+	
+		//获取地址列表
+	function getadds(){
+		var condi = {};
+		condi.code=g.code;
+		var url = Base.serverUrl + 'category/';
+		//g.httpTip.show();
+		$.ajax({
+			url:url,
+			data:condi,
+			timeout: 30000, //超时时间设置，单位毫秒
+			type:"GET",
+			dataType:'json',
+			context:this,
+			success: function(data){
+				if(data){
+					var data = data.results || {};
+					var data = data[0] || {};
+					var cityName = data.name||'地址传递失败';
+					$('#cityname').html(cityName);
+				}
+				else{
+					var msg = data.message || "获取失败";
+					Utils.alert(msg);
 				}
 				//g.httpTip.hide();
 			},
