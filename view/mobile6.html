@@ -115,19 +115,19 @@ $(function(){
 						$('#incity').html('已入住'+count+'家场馆');
 						
 					}else{
-						Utils.alert('该城市下暂无场馆！');
+						Utils.alert('该城市下暂无场馆数据，2018计划采集中，采集组联系方式：+86-010-52450956');
 					}
 				}
 				else{
-					var msg = data.message || "获取失败";
-					//Utils.alert(msg);
+					var msg = data.message || "获取失败，请稍后重试";
+					Utils.alert(msg);
 				}
 				//g.httpTip.hide();
 			},
 			error:function(data,status){
 				//g.httpTip.hide();
 				if(status=='timeout'){
-		　　　　　  Utils.alert("超时");
+		　　　　　  Utils.alert("数据请求超时，请稍后重试");
 		　　　　}
 			}
 		});
