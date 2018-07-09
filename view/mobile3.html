@@ -51,6 +51,7 @@ $(function(){
 	g.nowPage = 0;//存当前页 0 是第一页
 	g.showPages = 10;//每页显示多少行
 	g.p_name = ['','场馆照片','专家访谈','讲解风采','场馆视频','场馆全景','场馆动态','场馆动态列表','相关机构'];
+	g.search='';
 	var usrs = ['','photo/','interview/','guide/','video/','pano/','article_detail/','article/','association/','person/'];
 	var venues={};
 	
@@ -89,18 +90,17 @@ $(function(){
 	  $('#ser_input').off('keyup').on('keyup', function (event) {
             clearTimeout(timeoutId);
             timeoutId = setTimeout(function () {    
-				var _val = $('#ser_input').val() || '';			
-                 getvenueother(g.p,_val);
+				g.search = $('#ser_input').val() || '';			
+                 getvenueother(g.p);
             }, 1000);
         });
 	
-	function getvenueother(n,ser){		
+	function getvenueother(n){		
 		var n = n || 1;
-		var ser = ser || '';
 		var condi = {};
 		if(g.id != 'index')condi.org_id = g.id;
 		condi.page_size = g.showPages;
-		condi.search = ser;
+		condi.search = g.search;
 		var url = Base.serverUrl + usrs[n];
 		//g.httpTip.show();
 		$.ajax({
@@ -228,7 +228,7 @@ $(function(){
 	//点击加载更多
 	$('#vue_list').on('click','.showm_a',function(){
 		g.showPages+=10;
-		getvenueother(g.p);
+		getvenueother(g.p,);
 	});
 	
 	//点击打开

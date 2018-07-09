@@ -16,7 +16,17 @@
 </head>
 <body class="commonBody m6 m2 index">
 	<div class="header">
-		<select id="vue_sel" class="sle"><option value="">场馆列表</option></select>
+		<select id="item_option" class="sle">
+		<option value="">场馆列表</option>
+		<option value="">专家访谈</option>
+		<option value="">讲解风采</option>
+		<option value="">场馆视频</option>
+		<option value="">场馆图片</option>
+		<option value="">场馆全景</option>
+		<option value="">相关机构</option>
+		<option value="">越拍越红</option>
+		<option value="">红色研学</option>		
+		</select>
 		<input id="ser_input" class="sle_input" placeholder="点击搜索" type="text" />
 	</div>
 	<div class="banner_div"> 
@@ -140,7 +150,7 @@ $(function(){
 
 	//加载页面
 	function loadPage(){
-		getVenues();//获取场馆列表
+		//getVenues();//获取场馆列表
 		getHotVenue();//获取热门场馆列表
 		//getvenueother(1);//摄影
 		getvenueother(2);//访谈
@@ -153,7 +163,7 @@ $(function(){
 	$('#ser_input').keyup(function(){
 		var _val = $(this).val() || '';
 		//if(_val == ''){return false;}
-		getVenues(_val);
+		//getVenues(_val);
 	
 	});
 	
