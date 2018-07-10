@@ -79,7 +79,9 @@ $(function(){
 						if(data.length==1){
 							var d = data[0] || '';
 							var url= d.video_url || '';
-							window.open(url);
+							console.log("video url="+url);
+							window.open("http://baidu.com");
+							return;
 						}else{
 						for(var i=0,len=data.length;i<len;i++){
 							var d = data[i] || '';
