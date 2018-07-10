@@ -8,6 +8,7 @@
 	<meta content="black" name="apple-mobile-web-app-status-bar-style">
 	<meta name="format-detection" content="telephone=no"/>
 	<link rel="stylesheet" href="../public/css/common.css" />
+	<link rel="stylesheet" href="../public/css/video-js.min.css" />
 	<title>红色汇</title>
 </head>
 <body class="commonBody m6 m3">
@@ -31,6 +32,7 @@
 	<script type="text/javascript" src="../public/libs/base.js"></script>
 	<script type="text/javascript" src="../public/libs/layer.js"></script>
 	<script type="text/javascript" src="../public/libs/utils.js"></script>
+	<script type="text/javascript" src="../public/libs/video/video.min.js"></script>
 	<script type="text/javascript" src="../public/js/common2.js"></script>
 	
 </body>
@@ -78,10 +80,20 @@ $(function(){
 						var org_temp='';
 						if(data.length==1){
 							var d = data[0] || '';
-							var url= d.video_url || '';
-							console.log("video url="+url);
-							window.open("http://baidu.com");
-							return;
+							var image_url = d.image_url || '../public/img/no.jpg';
+							var video_url= d.video_url || '';
+							var name = d.name || '';
+							console.log("video url="+video_url);
+							//window.open("http://baidu.com");
+							//window.location.href=url;
+							//return;
+							html='<div class="cg_one"><video id="my-video" class="video-js" controls preload="auto" '+
+							'poster="'+image_url+'" data-setup="{}">'+
+							'<source src="'+video_url+'" type="video/mp4">'+
+							'</video>'+
+							'<div class="cg_text">'+name+'</div>'+
+							'</a></div>';	
+							$('#vue_list').html(html);
 						}else{
 						for(var i=0,len=data.length;i<len;i++){
 							var d = data[i] || '';
@@ -103,10 +115,16 @@ $(function(){
 							}
 							{//3讲解视频
 								//do nothing
-								html+='<div class="cg_one"><a href="'+video_url+'">'
-									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
-									+'<div class="cg_text">'+name+'</div>'
-								+'</a></div>';								
+								//html+='<div class="cg_one"><a href="'+video_url+'">'
+								//	+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
+								//	+'<div class="cg_text">'+name+'</div>'
+								//+'</a></div>';	
+								html+='<div class="cg_one"><video id="my-video" class="video-js" controls preload="auto" '+
+							'poster="'+image_url+'" data-setup="{}">'+
+							'<source src="'+video_url+'" type="video/mp4">'+
+							'</video>'+
+							'<div class="cg_text">'+name+'</div>'+
+							'</a></div>';		
 							}							
 						}
 						$('#vue_list').html(html);
