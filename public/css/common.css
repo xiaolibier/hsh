@@ -139,7 +139,13 @@ background:url('../img/m2_3.png') no-repeat 98% center;background-size:auto 22%;
 .index .intr_ul li .tt{color:#283B42;text-overflow:ellipsis;font-size:18px;display:inline-block;width:100%;overflow:hidden;text-align:center;}
 
 
-
+.video-js .vjs-tech {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
 
 
