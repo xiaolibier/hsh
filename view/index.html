@@ -23,7 +23,6 @@
 		<option value="">场馆视频</option>
 		<option value="">场馆图片</option>
 		<option value="">场馆全景</option>
-		<option value="">越拍越红</option>	
 		</select>
 		<input id="ser_input" class="sle_input" placeholder="点击搜索" type="text" />
 	</div>
@@ -87,23 +86,33 @@
 		</div>
 	</div>
 	<!--  -->
-	<div class="m6_head m6_head8">
-		<span class="title1">相关机构</span>
+	<div class="m6_head m6_head3">
+		<span class="title1">讲解风采</span>
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img cg_img8" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
-			<span class="cgpo_t">相关机构</span>
+			<div class="cg_img cg_img3" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<span class="cgpo_t">讲解风采</span>
 		</div>
 	</div>
 	<!--  -->
-	<div class="m6_head m6_head1">
-		<span class="title1">越拍越红</span>
+	<div class="m6_head m6_head4">
+		<span class="title1">场馆视频</span>
 	</div>
 	<div class="changguan_list">
 		<div class="cg_one">
-			<div class="cg_img cg_img9" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
-			<span class="cgpo_t">越拍越红</span>
+			<div class="cg_img cg_img4" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<span class="cgpo_t">场馆视频</span>
+		</div>
+	</div>
+	<!--  -->
+	<div class="m6_head m6_head5">
+		<span class="title1">场馆全景</span>
+	</div>
+	<div class="changguan_list">
+		<div class="cg_one">
+			<div class="cg_img cg_img5" style="background:url('http://p61rqs6a4.bkt.clouddn.com/m3_1.png') no-repeat center center;background-size:cover;"></div>
+			<span class="cgpo_t">场馆全景</span>
 		</div>
 	</div>
 	<!--  -->
@@ -151,10 +160,13 @@ $(function(){
 		//getVenues();//获取场馆列表
 		getHotVenue();//获取热门场馆列表
 		//getvenueother(1);//摄影
-		getvenueother(2);//访谈
+		getvenueother(2);//专家访谈
+		getvenueother(3);//讲解风采
+		getvenueother(4);//场馆视频
+		getvenueother(5);//全景		
 		getvenueother(7);//动态
-		getvenueother(8);//机构
-		getvenueother(9);//越拍越红
+		//getvenueother(8);//机构
+		//getvenueother(9);//越拍越红
 	}
 
 	//搜索框输入
