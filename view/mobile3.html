@@ -142,22 +142,20 @@ $(function(){
 							}//第一个是场馆图片
 							if(n == 2){//2 访谈视频
 							//video_url = image_url;
-							var temp_name='';
-								if(series_tag=='')temp_name=name;
-								else temp_name=series_tag;
+						
+							video_url="访谈视频.html?org_id="+org+"&series_tag="+name;
 							html+='<div class="cg_one"><a href="'+video_url+'">'
 									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
-									+'<div class="cg_text">'+temp_name+'</div>'
+									+'<div class="cg_text">'+name+'</div>'
 								+'</a></div>';
 							}//第二个是访谈视频
 							if(n == 3){//3讲解视频
-								var temp_name='';
-								if(series_tag=='')temp_name=name;
-								else temp_name=series_tag;
+						
+								video_url="讲解视频.html?org_id="+org+"&series_tag="+name;
 								//do nothing
 								html+='<div class="cg_one"><a href="'+video_url+'">'
 									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
-									+'<div class="cg_text">'+temp_name+'</div>'
+									+'<div class="cg_text">'+name+'</div>'
 								+'</a></div>';								
 							}
 							if(n==4){//4表示场馆视频	

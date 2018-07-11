@@ -8,6 +8,7 @@
     <meta content="black" name="apple-mobile-web-app-status-bar-style">
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="../public/css/common.css"/>
+	<link rel="stylesheet" href="../public/css/video-js.min.css" />
     <title>红色汇</title>
 </head>
 <body class="commonBody m6 m3">
@@ -24,7 +25,7 @@
     <!-- <div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div> -->
 </div>
 
-
+<script type="text/javascript" src="../public/libs/video/video.min.js"></script>
 <script type="text/javascript" src="../public/libs/jquery.min.js"></script>
 <script type="text/javascript" src="../public/laydate/laydate.js"></script>
 <script type="text/javascript" src="../public/libs/json.js"></script>
@@ -75,10 +76,16 @@
                                     var image_url = video.image_url || '';//图片
                                     var video_url = video.video_url || '';//具体视频
 									console.log("video_url="+video_url);
-                                    html += '<div class="cg_one"><a href="' + video_url + '">'
-                                            + '<div class="cg_img" style="background:url(' + image_url + ') no-repeat center center;background-size:cover;"></div>'
-                                            + '<div class="cg_text">' + video_name + '</div>'
-                                            + '</a></div>';
+                                    //html += '<div class="cg_one"><a href="' + video_url + '">'
+                                    //        + '<div class="cg_img" style="background:url(' + image_url + ') no-repeat center center;background-size:cover;"></div>'
+                                    //        + '<div class="cg_text">' + video_name + '</div>'
+                                    //        + '</a></div>';
+									html+='<div class="cg_one"><video id="my-video" class="video-js vjs-big-play-centered vjs-fluid" controls auto-play="auto-play" '+
+ 							'poster="'+image_url+'" data-setup="{}">'+
+ 							'<source src="'+video_url+'" type="video/mp4">'+
+ 							'</video>'+
+ 							'<div class="cg_text">'+name+'</div>'+
+ 							'</a></div>';
                                     $('#vue_list').html(html);
                                 } else if (video_list.length > 1) {
 								console.log("video_list="+video_list.length);
