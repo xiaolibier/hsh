@@ -117,7 +117,6 @@ $(function(){
 				if(data&&((count > 0))){
 						var data = data.results || [];
 						var html = '';
-						var series_tag_temp='';
 						var org_temp='';						
 						for(var i=0,len=data.length;i<len;i++){
 							var d = data[i] || '';
@@ -161,22 +160,12 @@ $(function(){
 									+'<div class="cg_text">'+temp_name+'</div>'
 								+'</a></div>';								
 							}
-							if(n==4){//4表示场馆视频
-								//do nothing
-								if((org==org_temp)&&(series_tag_temp==series_tag)&&(org!='')){
-									//数据重复情况下不添加
-								}else{
-								var temp_name='';
-								if(series_tag=='')temp_name=name;
-								else temp_name=series_tag;
-								video_url="视频播放.html?org_id="+org+"&series_tag="+temp_name;
+							if(n==4){//4表示场馆视频	
+								video_url="视频播放.html?org_id="+org+"&series_tag="+name;
 								html+='<div class="cg_one"><a href="'+video_url+'">'
 									+'<div class="cg_img" style="background:url('+image_url+') no-repeat center center;background-size:cover;"></div>'
-									+'<div class="cg_text">'+temp_name+'</div>'
-								+'</a></div>';								
-								}
-								org_temp=org;
-								series_tag_temp=series_tag;		
+									+'<div class="cg_text">'+name+'</div>'
+								+'</a></div>';	
 							}
 							if(n == 5){//5是全景图
 								video_url = pano_url;
