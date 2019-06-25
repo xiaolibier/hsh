@@ -90,13 +90,20 @@ $(function(){
 							var name = d.name || '';
 							var desc = d.desc || '';
 							var detail = d.detail || '';
+							var server_url=d.server_addr||'';
 							if(detail != ''){desc = detail;}
 							if(i==0){
 							  html+='<div class="cg_one">'
 									+'<div class="cg_text" style="text-align:left;padding:0 3%;color:#283B42;font-size:24px;">'+name+'</div>'
 									+'<div class="cg_img" style="color:#9B9B9B;height:auto;overflow:hidden;font-size:16px;margin:10px 3%;" >'+desc+'</div>'
 								+'</div>';
+								//<img src=\"
+								var reg = new RegExp( '<img src=\"' , "g" )
+								html = html.replace( reg , "<img src=\""+server_url );
+								console.log("html="+html);
+								//html.replace("<img src=\"","<img src=\""+server_url);
 							}//获取第一个
+							
 						}
 						$('#details').html(html);
 						

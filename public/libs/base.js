@@ -18,9 +18,11 @@
 	var userName = "";
 	//用户手机号
 	var phoneNumber = "";
-
 	//请求服务地址
-	var serverUrl = "http://192.168.1.20:8081/proxy/api/";//
+	var serverUrl = "http://www.mijson.com/api/";//
+	//var serverUrl = "http://localhost/api/";//
+	//var serverUrl = "http://www.mijson.com/api/";//
+
 
 	
 	

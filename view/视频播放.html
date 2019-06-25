@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="../public/css/common.css"/>
+	<link rel="stylesheet" href="../public/css/video-js.min.css" />
+    <title>红色汇</title>
+</head>
+<body class="commonBody m6 m3">
+<div class="m6_head">
+    <span id="p_name" class="title1"></span>
+</div>
+<div id="vue_list" class="changguan_list">
+    <!-- <div class="cg_one">
+        <div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+    </div>
+    <div class="cg_one">
+        <div class="cg_img" style="background:url('../public/img/m3_1.png') no-repeat center center;background-size:cover;"></div>
+    </div> -->
+    <!-- <div class="showmore_div"><a class="showm_a" href="javascript:;">点击加载更多</a></div> -->
+</div>
+
+<script type="text/javascript" src="../public/libs/video/video.min.js"></script>
+<script type="text/javascript" src="../public/libs/jquery.min.js"></script>
+<script type="text/javascript" src="../public/laydate/laydate.js"></script>
+<script type="text/javascript" src="../public/libs/json.js"></script>
+<script type="text/javascript" src="../public/libs/base.js"></script>
+<script type="text/javascript" src="../public/libs/layer.js"></script>
+<script type="text/javascript" src="../public/libs/utils.js"></script>
+<script type="text/javascript" src="../public/js/common2.js"></script>
+</body>
+
+<script>
+    $(function () {
+        var org_id = '';
+        var series_tag = '';
+        org_id = Utils.getQueryString("org_id") || "";//场馆id
+        loadPage();
+        /* **************************************** setTing ******************************************** */
+
+        //加载页面
+        function loadPage() {
+            getVideo();
+        }
+
+
+        function getVideo() {
+            var url = Base.serverUrl + "video/?page_size=10&org_id=" + org_id;//视频
+            //g.httpTip.show();
+            $.ajax({
+                url: url,
+                timeout: 30000, //超时时间设置，单位毫秒
+                type: "GET",
+                dataType: 'json',
+                async: false,
+                context: this,
+                success: function (data) {
+                    if (data) {
+                        var count = data.count || 0;
+                        if (count > 0) {
+                            var data = data.results[0] || '';
+                            var html = '';							
+                            if (data != '') {
+                                series_tag = data.name;
+                                $('#p_name').html(series_tag);//填充标题
+                                var video_list = data.video_list || [];		
+								video_list=JSON.parse(video_list);
+                                if (video_list.length == 1) {
+                                    var video = video_list[0] || '';
+                                    var video_name = video.name || '';
+                                    var image_url = video.image_url || '';//图片
+                                    var video_url = video.video_url || '';//具体视频
+									console.log("video_url="+video_url);
+                                    //html += '<div class="cg_one"><a href="' + video_url + '">'
+                                    //        + '<div class="cg_img" style="background:url(' + image_url + ') no-repeat center center;background-size:cover;"></div>'
+                                    //        + '<div class="cg_text">' + video_name + '</div>'
+                                    //        + '</a></div>';
+									html+='<div class="cg_one"><video id="my-video" class="video-js vjs-big-play-centered vjs-fluid" controls auto-play="auto-play" '+
+ 							'poster="'+image_url+'" data-setup="{}">'+
+ 							'<source src="'+video_url+'" type="video/mp4">'+
+ 							'</video>'+
+ 							'<div class="cg_text">'+name+'</div>'+
+ 							'</a></div>';
+                                    $('#vue_list').html(html);
+                                } else if (video_list.length > 1) {
+								console.log("video_list="+video_list.length);
+                                    for (var i = 0, len = video_list.length; i < len; i++) {
+                                        var d = video_list[i] || '';
+                                        var id = d.id || '';
+                                        var image_url = d.image_url || '../public/img/no.jpg';
+                                        var video_url = d.video_url || '';
+                                        var video_name = d.name || '';
+
+                                        //3讲解视频
+                                        //do nothing
+                                      //  html += '<div class="cg_one"><a href="' + video_url + '">'
+                                      //      + '<div class="cg_img" style="background:url(' + image_url + ') no-repeat center center;background-size:cover;"></div>'
+                                      //      + '<div class="cg_text">' + video_name + '</div>'
+                                      //      + '</a></div>';
+                                        html+='<div class="cg_one"><video id="my-video" class="video-js vjs-big-play-centered vjs-fluid" controls preload="auto" '+
+                                        'poster="'+image_url+'" data-setup="{}">'+
+                                        '<source src="'+video_url+'" type="video/mp4">'+
+                                        '</video>'+
+                                        '<div class="cg_text">'+video_name+'</div>'+
+                                        '</a></div>';
+
+                                    }
+                                    $('#vue_list').html(html);
+
+
+                                } else {
+                                    Utils.alert("后台接口返回错误，请联系管理员");
+
+                                }
+                            }
+
+                        }
+
+                    }
+                    else {
+                        var msg = data.message || "获取失败";
+                        Utils.alert(msg);
+                    }
+                    //g.httpTip.hide();
+                },
+                error: function (data, status) {
+                    //g.httpTip.hide();
+                    if (status == 'timeout') {
+                        Utils.alert("超时");
+                    }
+                }
+            });
+        }
+
+
+        //点击打开
+        window.openurl = function (url) {
+            var url = url || '';
+            window.open(url);
+        }
+        /* **************************************** 获取所有 ******************************************** */
+
+
+    });
+
+</script>
+</html>
